@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { reducer } from './reducer';
 export const initialState = {
     loggedUser:"",
-    
+    selectedUser:""
 }
 const allEnhancers = compose( 
     applyMiddleware(thunk),

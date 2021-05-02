@@ -2,7 +2,7 @@ import React from 'react'
 import MeBubble from './meBubble'
 import SenderBubble from './senderBubble'
 import styles from '../styles.module.css'
-export default function MessageScroller() {
+export default function MessagingScreen() {
     return (
         <div className={styles.messageScrollerStage}>
             <SenderBubble message="merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)" />

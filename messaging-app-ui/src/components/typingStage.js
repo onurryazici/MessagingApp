@@ -6,7 +6,7 @@ import styles from '../styles.module.css'
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "192.168.91.128:4001";
 
-export default function MessageTyping() {
+export default function TypingStage() {
     const [response, setResponse] = useState("");
 
     useEffect(() => {

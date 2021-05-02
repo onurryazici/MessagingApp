@@ -1,24 +1,19 @@
 import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Tab, Row, Col, Nav, Button, Form } from 'react-bootstrap'
-import styles from './styles.module.css'
-import Userbox from './components/userbox';
-import Sidebar from './components/sidebar';
-import MessageStage from './components/messageStage';
 import MessengerCore from './core';
-
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
+import { SET_LOGGED_USER } from './redux/functions';
 export function ReactMessenger (props){
-const [selectedUserName, setSelectedUserName] = useState("");
-
+  store.dispatch(SET_LOGGED_USER(props.username))
   return (
-    <div className={styles.container}>
+    <Provider store={store}>
       <MessengerCore/>
-    </div>
+    </Provider>
   )
 }
 
 ReactMessenger.PropTypes = {
-  username                      : PropTypes.string,
-  API_URL                       : PropTypes.string,
-  tokenName                     : PropTypes.string,
+  username  : PropTypes.string,
 }

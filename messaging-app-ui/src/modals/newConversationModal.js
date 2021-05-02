@@ -12,7 +12,6 @@ export default function NewConversationModal() {
           <Button variant="flat" onClick={handleShow} className={styles.newConversationButton}>
             <FaPlusCircle fontSize="25px"/> Yeni mesaj
           </Button>
-    
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Yeni bir konuşma başlat</Modal.Title>
@@ -23,10 +22,10 @@ export default function NewConversationModal() {
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
-                Close
+                Vazgeç
               </Button>
               <Button variant="primary" onClick={handleClose}>
-                Save Changes
+                Gönder
               </Button>
             </Modal.Footer>
           </Modal>

@@ -56,6 +56,10 @@
   height: 53px;
   line-height:30px;
 }
+.newConversationButton:hover{
+  background-color:#70aee0;
+  color: #fff;
+}
 .messengerRedDot{
   color:red;
   margin-top: 15px;
@@ -76,7 +80,7 @@
   position: absolute;
   width: 100%;
   top: 53px;
-  bottom: 60px;
+  bottom: 79px;
   padding: 20px;
   background-color: #eaeaea;
   display: flex;
@@ -110,5 +114,20 @@
   position: absolute;
   bottom: 0px;
   width: 100%;
-  height: 70px;
+  height: 80px;
+  display: flex;
+  padding: 15px;
+}
+.messageTypingArea{
+  resize: none;
+  border-radius: 15px;
+  margin-right: 15px;
+  padding: 12px;
+}
+.messageSendButton{
+  background-color:#3f7fb3;
+
+}
+.userBoxSelected{
+  background-color: #70aee0;
 }

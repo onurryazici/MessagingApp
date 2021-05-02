@@ -7,6 +7,10 @@ export default function Sidebar() {
         <div className={styles.sidebar}>
             <NewConversation />
             <Userbox username="onur"/>
+            <Userbox username="ömer"/>
+            <Userbox username="ahmet"/>
+            <Userbox username="melek"/>
+
         </div>
     )
 }

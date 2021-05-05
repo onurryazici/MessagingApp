@@ -4,7 +4,7 @@ export default function BubbleMe(props) {
     return (
         <div className={styles.bubbleMe}>
             <div>{props.message}</div><br/>
-            <span className={styles.bubbleTimeSender}>04.16.2020 17:44</span>
+            <span className={styles.bubbleTimeMe}>04.16.2020 17:44</span>
         </div>
     )
 }

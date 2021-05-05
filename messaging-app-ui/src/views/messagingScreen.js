@@ -9,6 +9,9 @@ export default function MessagingScreen() {
             <BubbleMe message="sanada (User)" />
             <BubbleSender message="merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)" />
             <BubbleSender message="merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)" />
+            <BubbleMe message="sanada (User)" />
+            <BubbleMe message="asdasdasdasdasda (User)" />
+            <BubbleMe message="merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)merhaba (sender)" />
         </div>
     )
 }

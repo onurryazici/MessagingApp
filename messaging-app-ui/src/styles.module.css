@@ -40,11 +40,12 @@
   border-right: solid thin #dedede;
 }
 
-.messageStage{
+.messagingScreen{
   height: 100%;
+  width: calc(100% - 350px);
   left: 350px;
-  right: 0px;
-  position: absolute;
+  position: relative;
+  background-color: aliceblue;
 }
 
 .newConversationButton {
@@ -69,18 +70,20 @@
 .messageUsernameTitle{
   font-weight: bolder;
   margin-left: 10px;
+  margin-top:1px;
 }
 .messageUserStatu{
   font-weight: lighter;
   color: #444;
   margin-left: 5px;
   font-size: 14px;
+  line-height: 30px;
 }
 .messageScrollerStage{
   position: absolute;
   width: 100%;
-  top: 53px;
-  bottom: 79px;
+  top: 55px;
+  bottom: 70px;
   padding: 20px;
   background-color: #eaeaea;
   display: flex;
@@ -88,7 +91,7 @@
   margin-bottom: 10px;
 }
 
-.meBubble{
+.bubbleMe{
   float: right;
   padding: 10px;
   color: #000;
@@ -98,16 +101,28 @@
   max-width: 450px;
   margin-bottom: 10px;
   margin-left: auto;
+  position: relative;
 }
-.userBubble{
+.bubbleSender{
   float: right;
   padding: 10px;
   color: #fff;
+  min-width: 150px;
   max-width: 450px;
-  background-color: #0066cc;
+  background-color: #3f7fb3;
   border-radius: 10px;
   border: solid thin #dedede;
   margin-bottom: 10px;
+  position: relative;
+  width: fit-content;
+}
+.bubbleTimeSender{
+  position: absolute;
+  right: 15px;
+  bottom: 7px;
+  color: #dee2e6;
+  font-size: 12px;
+  line-height: 25px;
 }
 
 .messageTypingStage{
@@ -120,7 +135,7 @@
 }
 .messageTypingArea{
   resize: none;
-  border-radius: 15px;
+  border-radius: 7px;
   margin-right: 15px;
   padding: 12px;
 }
@@ -129,5 +144,39 @@
 
 }
 .userBoxSelected{
-  background-color: #70aee0;
+  background-color: rgb(230, 242, 252);
+}
+
+#welcomeScreenStage{
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow-x:hidden;
+  height: calc(100% - 124px);
+  overflow-y:auto;
+  display: block;
+  position: relative;
+  background-color: aliceblue;
+}
+#welcomeScreenMessage {
+  width: 25em;
+  height: 16em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 110px
+}
+
+.messengerLogo{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.messagingHeader{
+  background-color: #fff;
+  display: flex;
 }

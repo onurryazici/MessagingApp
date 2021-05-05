@@ -24,7 +24,7 @@ export default function NewConversationModal() {
               <Button variant="secondary" onClick={handleClose}>
                 Vazgeç
               </Button>
-              <Button variant="primary" onClick={handleClose}>
+              <Button variant="flat" onClick={handleClose} style={{backgroundColor:'#3f7fb3', color:'#fff'}}>
                 Gönder
               </Button>
             </Modal.Footer>

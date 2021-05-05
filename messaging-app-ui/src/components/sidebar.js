@@ -1,7 +1,7 @@
 import React from 'react'
 import NewConversation from '../modals/newConversationModal'
 import styles from '../styles.module.css'
-import Userbox from './userbox'
+import Userbox from '../views/userbox'
 export default function Sidebar() {
     return (
         <div className={styles.sidebar}>
@@ -10,7 +10,6 @@ export default function Sidebar() {
             <Userbox username="ömer"/>
             <Userbox username="ahmet"/>
             <Userbox username="melek"/>
-
         </div>
     )
 }

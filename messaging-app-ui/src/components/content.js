@@ -5,14 +5,13 @@ import { useSelector } from 'react-redux'
 import styles from '../styles.module.css'
 import MessagingHeader from '../views/messagingHeader'
 import MessagingScreen from '../views/messagingScreen'
-import MessageTyping from '../views/messagingTyping'
-export default function MessageScreen() {
+export default function Content() {
     const selectedUser = useSelector(state => state.selectedUser)
 
     if(selectedUser === ""){
         return (
             <div className={styles.messagingScreen}>
-                <div  className={styles.messengerLogo}><FaFacebookMessenger style={{color: '#1e538c',width: '100px',height: '100px'}}/></div>
+                <div className={styles.messengerLogo}><FaFacebookMessenger style={{color: '#1e538c',width: '100px',height: '100px'}}/></div>
             </div>
         )
     }
@@ -21,7 +20,6 @@ export default function MessageScreen() {
             <div className={styles.messagingScreen}>
                 <MessagingHeader/>
                 <MessagingScreen/>
-                <MessageTyping/>
             </div>
         )
     }

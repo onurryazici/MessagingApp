@@ -3,7 +3,7 @@ import styles from '../styles.module.css'
 import classNames from 'classnames'
 import { FaDotCircle, FaUserCircle} from 'react-icons/fa'
 import { useSelector, useStore } from 'react-redux'
-import { SET_SELECTED_USER } from '../redux/functions'
+import { SET_LOADING, SET_SELECTED_USER } from '../redux/functions'
 export default function Userbox(props) {
     const username = props.username
     const [isSelectedUser, setisSelectedUser] = useState(false)
@@ -19,6 +19,9 @@ export default function Userbox(props) {
     }, [selectedUser])
     function SelectUser(){
         store.dispatch(SET_SELECTED_USER(username))
+        store.dispatch(SET_LOADING(true))
+        
+        
     }
     return (
         <div className={selectedClass} onClick={()=>SelectUser()}>

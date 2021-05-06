@@ -11,3 +11,8 @@ export function SET_SELECTED_USER(_username){
         dispatch({type:Actions.SET_SELECTED_USER, payload:_username})
     }
 }
+export function SET_LOADING(_value){
+    return dispatch => {
+        dispatch({type:Actions.SET_LOADING, payload: _value})
+    }
+}

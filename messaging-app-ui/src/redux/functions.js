@@ -16,3 +16,14 @@ export function SET_LOADING(_value){
         dispatch({type:Actions.SET_LOADING, payload: _value})
     }
 }
+export function CLEAR_CONVERSATION(){
+    return dispatch => {
+        dispatch({type:Actions.CLEAR_CONVERSATION, payload: null})
+    }
+}
+
+export function SET_CONFIG(_config){
+    return dispatch => {
+        dispatch({type:Actions.SET_CONFIG, payload: _config})
+    }
+}

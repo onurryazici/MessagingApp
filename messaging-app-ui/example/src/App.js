@@ -4,7 +4,13 @@ import { ReactMessenger } from 'messaging-app-ui'
 import 'messaging-app-ui/dist/index.css'
 
 const App = () => {
-  return <ReactMessenger username='onur' />
+  return (
+    <div><ReactMessenger username="onur"
+            API_URL="http://192.168.91.128:4001/api"
+            API_URL_GetMessage="/protected/getMessage"
+          />
+    </div>
+  )       
 }
 
 export default App

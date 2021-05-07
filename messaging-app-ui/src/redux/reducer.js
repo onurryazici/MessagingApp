@@ -13,6 +13,21 @@ export function reducer (state,action){
                 ...state,
                 selectedUser:action.payload
             }
+        case Actions.SET_LOADING:
+            return {
+                ...state,
+                loading:action.payload
+            }
+        case Actions.CLEAR_CONVERSATION:
+            return {
+                ...state,
+                conversation:[]
+            }
+        case Actions.SET_CONFIG:
+            return {
+                ...state,
+                config:action.payload
+            }
         default:
             return state;
     }

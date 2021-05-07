@@ -8,6 +8,7 @@ export const initialState = {
     selectedUser : "",
     conversation : "",
     loading      : true,
+    config:{},
 }
 const allEnhancers = compose( 
     applyMiddleware(thunk),

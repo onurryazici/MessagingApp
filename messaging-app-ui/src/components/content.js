@@ -1,6 +1,5 @@
 import React from 'react'
-import { Accordion, Card } from 'react-bootstrap'
-import { FaDotCircle, FaFacebookMessenger, FaUserCircle } from 'react-icons/fa'
+import { FaFacebookMessenger } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import styles from '../styles.module.css'
 import MessagingHeader from '../views/messagingHeader'

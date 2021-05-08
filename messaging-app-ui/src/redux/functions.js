@@ -21,6 +21,11 @@ export function CLEAR_CONVERSATION(){
         dispatch({type:Actions.CLEAR_CONVERSATION, payload: null})
     }
 }
+export function SET_CONVERSATION(_conversationArray){
+    return dispatch => {
+        dispatch({type:Actions.SET_CONVERSATION, payload: _conversationArray})
+    }
+}
 
 export function SET_CONFIG(_config){
     return dispatch => {

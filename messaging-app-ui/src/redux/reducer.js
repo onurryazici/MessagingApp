@@ -1,6 +1,4 @@
 import { Actions } from './actions';
-import styles from '../styles.module.css';
-
 export function reducer (state,action){
     switch(action.type){
         case Actions.SET_LOGGED_USER:
@@ -22,6 +20,11 @@ export function reducer (state,action){
             return {
                 ...state,
                 conversation:[]
+            }
+        case Actions.SET_CONVERSATION:
+            return {
+                ...state,
+                conversation:action.payload
             }
         case Actions.SET_CONFIG:
             return {

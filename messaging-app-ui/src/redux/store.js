@@ -6,7 +6,7 @@ import { reducer } from './reducer';
 export const initialState = {
     loggedUser   : "",
     selectedUser : "",
-    conversation : "",
+    conversation : [],
     loading      : true,
     config:{},
 }

@@ -8,6 +8,7 @@ const App = () => {
     <div><ReactMessenger username="onur"
             API_URL="http://192.168.91.128:4001/api"
             API_URL_GetMessage="/protected/getMessage"
+            API_URL_GetConversationList ="/protected/getConversationList"
           />
     </div>
   )       

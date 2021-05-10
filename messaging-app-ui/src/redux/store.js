@@ -4,11 +4,12 @@ import { createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { reducer } from './reducer';
 export const initialState = {
-    loggedUser   : "",
-    selectedUser : "",
-    conversation : [],
-    loading      : true,
-    config:{},
+    loggedUser       : "",
+    selectedUser     : "",
+    conversation     : [],
+    conversationList : [],
+    loading          : true,
+    config           : {},
 }
 const allEnhancers = compose( 
     applyMiddleware(thunk),

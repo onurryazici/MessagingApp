@@ -8,6 +8,7 @@ import BubbleSender     from './bubbleSender'
 import styles           from '../styles.module.css'
 import classNames from 'classnames'
 import { PUSH_TO_CONVERSATION } from '../redux/functions'
+import socket from '../socket'
 
 export default function MessagingScreen() {
     const [message, setMessage] = useState("")
@@ -19,11 +20,15 @@ export default function MessagingScreen() {
     const conversation   = useSelector(state => state.conversation)
     
     useEffect(() => {
-        //MessengerSocket.on('ömer',async(data)=>{
-        alert("mesaj alındı")
+        socket.on("INCOMING_MESSAGE", (data)=>{
+            if(data.sender === selectedUser) {
+                store.dispatch(PUSH_TO_CONVERSATION(data))
+            } else {
+                //store.dispatch
+            }
+          })
     }, [])
     
-
     useEffect(() => {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight
     },[conversation])
@@ -32,9 +37,21 @@ export default function MessagingScreen() {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight // BU BLOK KALDIRILACAK
     },)
 
+    function onKeyUp(event) {
+        setMessage(event.target.value)
+        const from   = loggedUser
+        const target = selectedUser
+        const typing = message.length > 0 ? true : false
+        socket.emit("SET_TYPING", from, target, typing)
+            
+    }
     function onKeyPress(event){
         if(event.which === 13 && !event.shiftKey){ // If pressed ENTER key
             event.preventDefault()
+            const from   = loggedUser
+            const target = selectedUser
+            const typing = false
+            socket.emit("SET_TYPING", from, target, typing)
             SendMessage(event)
         }
     }
@@ -47,13 +64,12 @@ export default function MessagingScreen() {
         const date      = new Date().getTime()
         if(message !== ""){
             const payload = {
-                id:"asdas",
                 sender:sender,
                 receiver:receiver,
                 message:message,
                 datetime:date
             }
-            //MessengerSocket.emit("SEND_MESSAGE", sender,receiver,message,date)
+            socket.emit("SEND_MESSAGE", sender,receiver,message,date)
             store.dispatch(PUSH_TO_CONVERSATION(payload))
             setMessage("")
         }
@@ -82,12 +98,13 @@ export default function MessagingScreen() {
                 <Form.Control as="textarea" rows={3} 
                     className={styles.messageTypingArea} 
                     placeholder="Mesaj yazın..." 
+                    onKeyUp={(event)=>onKeyUp(event)}
                     onKeyPress={(event)=>onKeyPress(event)}
                     onChange={(event)=>setMessage(event.target.value)}
                     disabled={loading}
                     value={message}
                     />
-                <Button  type="submit" variant="flat" className={styles.messageSendButton} disabled={loading}>
+                <Button type="submit" variant="flat" className={styles.messageSendButton} disabled={loading}>
                     <FaPaperPlane color="white"/>
                 </Button>
             </Form>

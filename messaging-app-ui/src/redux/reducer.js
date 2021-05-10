@@ -28,9 +28,7 @@ export function reducer (state,action){
             }
         case Actions.PUSH_TO_CONVERSATION: 
             const newConversation = [...state.conversation]
-            const selectedUser    = state.selectedUser
-            if(action.payload.sender === selectedUser || action.payload.receiver === selectedUser)
-                newConversation.push(action.payload)
+            newConversation.push(action.payload)
             return {
                 ...state,
                 conversation:newConversation

@@ -10,8 +10,8 @@ export function ReactMessenger (props){
     API_URL_GetMessage : props.API_URL_GetMessage,
     API_URL_GetConversationList : props.API_URL_GetConversationList
   }
-
-  store.dispatch(SET_LOGGED_USER(props.username))
+  
+  store.dispatch(SET_LOGGED_USER(prompt("kullanıcı adı gir")))
   store.dispatch(SET_CONFIG(configPayload))
   return (
     <Provider store={store}>

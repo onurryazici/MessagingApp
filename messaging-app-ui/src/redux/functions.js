@@ -26,6 +26,11 @@ export function SET_CONVERSATION(_conversationArray){
         dispatch({type:Actions.SET_CONVERSATION, payload: _conversationArray})
     }
 }
+export function PUSH_TO_CONVERSATION(_messagePayload){
+    return dispatch => {
+        dispatch({type:Actions.PUSH_TO_CONVERSATION, payload: _messagePayload})
+    }
+}
 
 export function SET_CONFIG(_config){
     return dispatch => {

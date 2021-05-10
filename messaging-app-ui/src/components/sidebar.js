@@ -14,13 +14,11 @@ export default function Sidebar() {
         axios.post(API_URL+API_URL_GetConversationList,{
             loggedUser:loggedUser
         }).then((response)=>{
-            //alert(JSON.stringify(response.data))
- 
             setConversationList(response.data.users)
         }).catch((error)=>{
-            alert("Hata x" + error)
+            alert("Hata : " + error)
         })
-    }, )
+    }, [])
     return (
         <div className={styles.sidebar}>
             <NewConversation />

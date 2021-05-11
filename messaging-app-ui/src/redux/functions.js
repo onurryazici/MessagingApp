@@ -16,19 +16,33 @@ export function SET_LOADING(_value){
         dispatch({type:Actions.SET_LOADING, payload: _value})
     }
 }
-export function CLEAR_CONVERSATION(){
+export function SET_CONVERSATION_LIST(_list){
     return dispatch => {
-        dispatch({type:Actions.CLEAR_CONVERSATION, payload: null})
+        dispatch({type:Actions.SET_CONVERSATION_LIST, payload: _list})
     }
 }
-export function SET_CONVERSATION(_conversationArray){
+export function CLEAR_SELECTED_CONVERSATION(){
     return dispatch => {
-        dispatch({type:Actions.SET_CONVERSATION, payload: _conversationArray})
+        dispatch({type:Actions.CLEAR_SELECTED_CONVERSATION, payload: null})
     }
 }
-export function PUSH_TO_CONVERSATION(_messagePayload){
+export function SET_SELECTED_CONVERSATION(_conversationArray){
     return dispatch => {
-        dispatch({type:Actions.PUSH_TO_CONVERSATION, payload: _messagePayload})
+        dispatch({type:Actions.SET_SELECTED_CONVERSATION, payload: _conversationArray})
+    }
+}
+export function PUSH_TO_SELECTED_CONVERSATION(_messagePayload){
+    return dispatch => {
+        dispatch({type:Actions.PUSH_TO_SELECTED_CONVERSATION, payload: _messagePayload})
+    }
+}
+export function SET_CONVERSATION_SEEN(_whichUser, _isRead){
+    const _payload ={
+        user:_whichUser,
+        hasRead : _isRead
+    }
+    return dispatch => {
+        dispatch({type:Actions.SET_CONVERSATION_READ, payload: _payload})
     }
 }
 

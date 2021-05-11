@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector, useStore }     from 'react-redux'
+import { connect, useSelector, useStore }     from 'react-redux'
 import { AddToBubbleMe, MessengerSocket } from '../helper/global'
 import { Button, Form } from 'react-bootstrap'
 import { FaPaperPlane } from 'react-icons/fa'
@@ -7,31 +7,49 @@ import BubbleMe         from './bubbleMe'
 import BubbleSender     from './bubbleSender'
 import styles           from '../styles.module.css'
 import classNames from 'classnames'
-import { PUSH_TO_CONVERSATION } from '../redux/functions'
+import { PUSH_TO_SELECTED_CONVERSATION, SET_CONVERSATION_SEEN } from '../redux/functions'
 import socket from '../socket'
 
 export default function MessagingScreen() {
-    const [message, setMessage] = useState("")
-    const store          = useStore()
-    const messagingStage = useRef(null)
-    const loggedUser     = useSelector(state => state.loggedUser)
-    const selectedUser   = useSelector(state => state.selectedUser)
-    const loading        = useSelector(state => state.loading)
-    const conversation   = useSelector(state => state.conversation)
+    const [message, setMessage]  = useState("")
+    const [seenState, setSeenState] = useState(false)
+    const store                  = useStore()
+    const messagingStage         = useRef(null)
+    const loggedUser             = useSelector((state)=>state.loggedUser)
+    const selectedUser           = useSelector((state)=>state.selectedUser)
+    const loading                = useSelector((state)=>state.loading)
+    const selectedConversation   = useSelector((state)=>state.selectedConversation)
     
     useEffect(() => {
+        socket.on("SEEN_NOTIFY",({from, hasRead})=>{
+            setSeenState(true)
+        })
         socket.on("INCOMING_MESSAGE", (data)=>{
             if(data.sender === selectedUser) {
-                store.dispatch(PUSH_TO_CONVERSATION(data))
+                alert("sender: " + data.sender + "\n receviver :" + data.receiver + "\n seluser:"+selectedUser)
+                store.dispatch(PUSH_TO_SELECTED_CONVERSATION(data))
+                store.dispatch(SET_CONVERSATION_SEEN(selectedUser,true))
+                let from     = loggedUser
+                let target   = selectedUser
+                let haveRead = true
+                socket.emit("SET_READ", from, target, "def")
+                
             } else {
-                //store.dispatch
+                store.dispatch()
+                //store.dispatch(SET_CONVERSATION_SEEN(from,FALSE)) 
             }
-          })
+        })
     }, [])
-    
+
+    useEffect(() => {
+        console.log(selectedUser)
+        socket.emit("SET_READ", loggedUser, selectedUser, "abc")
+
+    }, [selectedUser])
+
     useEffect(() => {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight
-    },[conversation])
+    },[selectedConversation])
     
     useEffect(() => {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight // BU BLOK KALDIRILACAK
@@ -70,7 +88,7 @@ export default function MessagingScreen() {
                 datetime:date
             }
             socket.emit("SEND_MESSAGE", sender,receiver,message,date)
-            store.dispatch(PUSH_TO_CONVERSATION(payload))
+            store.dispatch(PUSH_TO_SELECTED_CONVERSATION(payload))
             setMessage("")
         }
     }
@@ -86,9 +104,9 @@ export default function MessagingScreen() {
                         </div>
                     </div>
                   : <React.Fragment>
-                      {conversation && conversation.map((element)=>{
+                      {selectedConversation && selectedConversation.map((element)=>{
                             if(element.sender===loggedUser)
-                                return <BubbleMe message={element.message} datetime={element.datetime}/>
+                                return <BubbleMe message={element.message} datetime={element.datetime} seen={seenState}/>
                             else
                                 return <BubbleSender message={element.message} datetime={element.datetime}/>
                       })}

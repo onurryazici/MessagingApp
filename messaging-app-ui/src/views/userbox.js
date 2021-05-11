@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styles from '../styles.module.css'
 import classNames from 'classnames'
-import { FaDotCircle, FaUserCircle} from 'react-icons/fa'
+import { FaCheckDouble, FaCircle, FaDotCircle, FaUserCircle} from 'react-icons/fa'
 import { useSelector, useStore } from 'react-redux'
-import { CLEAR_CONVERSATION, SET_CONVERSATION, SET_LOADING, SET_SELECTED_USER } from '../redux/functions'
+import { CLEAR_SELECTED_CONVERSATION, SET_SELECTED_CONVERSATION, SET_LOADING, SET_SELECTED_USER } from '../redux/functions'
 import Axios from 'axios'
 import { propTypes } from 'react-bootstrap/esm/Image'
+import socket from '../socket'
 export default function Userbox(props) {
     const username          = props.username
     const [isSelectedUser, setisSelectedUser] = useState(false)
@@ -22,19 +23,23 @@ export default function Userbox(props) {
             setselectedClass(classNames(styles.userSelectionBox,styles.userBoxSelected))
             store.dispatch(SET_SELECTED_USER(username))
             store.dispatch(SET_LOADING(true))
-            store.dispatch(CLEAR_CONVERSATION())
+            store.dispatch(CLEAR_SELECTED_CONVERSATION())
 
             Axios.post(API_URL + API_URL_GetMessage, {
                 sender:loggedUser, 
                 receiver:_username
-            }).then((response)=>{
-                console.log(response.data)
-                store.dispatch(SET_CONVERSATION(response.data.message))
-                store.dispatch(SET_LOADING(false))
-            }).catch(err=>{
+                }).then((response)=>{
+                    console.log(response.data)
+                    store.dispatch(SET_SELECTED_CONVERSATION(response.data.message))
+                    store.dispatch(SET_LOADING(false))
+                    /*let from = loggedUser
+                    let target = selectedUser
+                    let haveRead = true
+                    socket.emit("SET_READ", from, target, haveRead)*/
+                }).catch(err=>{
                 alert("hata " + err)
-            })
-        }
+                })
+            }
     }, [])
 
     useEffect(() => {
@@ -48,7 +53,8 @@ export default function Userbox(props) {
         <div className={selectedClass} onClick={()=>SelectUser(username)}>
             <FaUserCircle className={styles.userAvatar} />
             <span style={{marginLeft:'10px'}}>{username}</span>
-            <FaDotCircle className={styles.messengerRedDot}/>
+            <FaCircle className={styles.messengerRedDot} fontSize="12px"/>
+            <span style={{marginLeft:'10px',float:'right'}}>{username}</span>
         </div>
     )
 }

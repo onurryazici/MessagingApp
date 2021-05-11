@@ -16,22 +16,37 @@ export function reducer (state,action){
                 ...state,
                 loading:action.payload
             }
-        case Actions.CLEAR_CONVERSATION:
+        case Actions.SET_CONVERSATION_LIST:
             return {
                 ...state,
-                conversation:[]
+                conversationList: action.payload
             }
-        case Actions.SET_CONVERSATION:
+        case Actions.CLEAR_SELECTED_CONVERSATION:
             return {
                 ...state,
-                conversation:action.payload
+                selectedConversation:[]
             }
-        case Actions.PUSH_TO_CONVERSATION: 
-            const newConversation = [...state.conversation]
+        case Actions.SET_SELECTED_CONVERSATION:
+            return {
+                ...state,
+                selectedConversation:action.payload
+            }
+        case Actions.PUSH_TO_SELECTED_CONVERSATION: 
+            const newConversation = [...state.selectedConversation]
             newConversation.push(action.payload)
             return {
                 ...state,
-                conversation:newConversation
+                selectedConversation:newConversation
+            }
+
+        case Actions.SET_CONVERSATION_READ:
+            const newConversationList = [...state.conversationList]
+            const targetUser = action.payload.user
+            const hasRead    = action.payload.hasRead
+            newConversationList.filter((element)=>element.user===targetUser ? element.hasRead = hasRead : element)
+            return {
+                ...state,
+                conversationList: newConversationList
             }
         case Actions.SET_CONFIG:
             return {

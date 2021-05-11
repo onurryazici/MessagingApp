@@ -63,8 +63,14 @@
 }
 .messengerRedDot{
   color:red;
-  margin-top: 15px;
+  margin-top: 18px;
   float: right;
+}
+.messageInfo{
+  float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+  color: #9e9e9e;
 }
 
 .messageUsernameTitle{

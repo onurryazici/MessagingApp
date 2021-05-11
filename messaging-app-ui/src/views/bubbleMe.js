@@ -3,7 +3,7 @@ import styles from '../styles.module.css'
 import DateFormatter from 'date-and-time'
 
 export default function BubbleMe(props) {
-    
+    const seen     = props.seen
     const datetime = props.datetime
     const message  = props.message
     const time     = (isToday(new Date(datetime))) 

@@ -18,7 +18,7 @@ export default function MessagingHeader() {
         <Accordion as={Card.Header} className={styles.messagingHeader}>
             <FaUserCircle color="#0066cc" fontSize="28px"/>
             <span className={styles.messageUsernameTitle}>{selectedUser}</span>
-            <FaCircle color="green" style={{marginLeft:'5px',marginTop:'5px'}}/>
+            <FaCircle color="green" className={styles.userOnlineHeader}/>
             <span className={styles.messageUserStatu}>{
                 isTyping ? "Yazıyor..." : ""
             }</span>

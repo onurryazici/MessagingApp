@@ -31,6 +31,27 @@ export function SET_SELECTED_CONVERSATION(_conversationArray){
         dispatch({type:Actions.SET_SELECTED_CONVERSATION, payload: _conversationArray})
     }
 }
+export function ADD_NEW_CONVERSATION(_user,_read,_seen){
+    const _payload={
+        user:_user,
+        read:_read,
+        seen:_seen
+    }
+    return dispatch => {
+        dispatch({type:Actions.ADD_NEW_CONVERSATION, payload: _payload})
+    }
+}
+export function UPDATE_EXIST_CONVERSATION(_user,_read,_seen){
+    const _payload={
+        user:_user,
+        read:_read,
+        seen:_seen
+    }
+    return dispatch => {
+        dispatch({type:Actions.UPDATE_EXIST_CONVERSATION, payload: _payload})
+    }
+}
+
 export function PUSH_TO_SELECTED_CONVERSATION(_messagePayload){
     return dispatch => {
         dispatch({type:Actions.PUSH_TO_SELECTED_CONVERSATION, payload: _messagePayload})

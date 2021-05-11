@@ -65,6 +65,7 @@
   color:red;
   margin-top: 18px;
   float: right;
+  font-size: 12px;
 }
 .messageInfo{
   float: right;
@@ -72,11 +73,17 @@
   margin-right: 10px;
   color: #9e9e9e;
 }
+.userOnlineHeader{
+  margin-left:10px;
+  margin-right: 10px;
+  margin-top:8px;
 
+  font-size: 12px;
+}
 .messageUsernameTitle{
   font-weight: bolder;
   margin-left: 10px;
-  margin-top:1px;
+  margin-top:2px;
 }
 .messageUserStatu{
   font-weight: lighter;

@@ -28,7 +28,7 @@ export default function Sidebar() {
             <NewConversation />
             {
                 conversationList.map((element)=>{
-                    return <Userbox username={element.user} hasRead={element.hasRead}/>
+                    return <Userbox username={element.user} haveRead={element.read}/>
                 })
             }
             

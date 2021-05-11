@@ -31,6 +31,26 @@ export function reducer (state,action){
                 ...state,
                 selectedConversation:action.payload
             }
+        case Actions.ADD_NEW_CONVERSATION:
+            const newConversationList = [...state.conversationList]
+            newConversationList.unshift(action.payload)
+            return {
+                ...state,
+                conversationList:newConversationList
+            }
+        case Actions.UPDATE_EXIST_CONVERSATION:
+            const updatedConversationList = [...state.conversationList]
+            updatedConversationList.map((element)=>{
+                if(element.user===action.payload.user){
+                    element.read = action.payload.read
+                    element.seen = action.payload.seen
+                }
+            })
+            return {
+                ...state,
+                conversationList:updatedConversationList
+            }
+
         case Actions.PUSH_TO_SELECTED_CONVERSATION: 
             const newConversation = [...state.selectedConversation]
             newConversation.push(action.payload)
@@ -40,13 +60,13 @@ export function reducer (state,action){
             }
 
         case Actions.SET_CONVERSATION_READ:
-            const newConversationList = [...state.conversationList]
+            const newConversationList2 = [...state.conversationList]
             const targetUser = action.payload.user
             const hasRead    = action.payload.hasRead
-            newConversationList.filter((element)=>element.user===targetUser ? element.hasRead = hasRead : element)
+            newConversationList2.filter((element)=>element.user===targetUser ? element.hasRead = hasRead : element)
             return {
                 ...state,
-                conversationList: newConversationList
+                conversationList: newConversationList2
             }
         case Actions.SET_CONFIG:
             return {

@@ -9,6 +9,7 @@ import { propTypes } from 'react-bootstrap/esm/Image'
 import socket from '../socket'
 export default function Userbox(props) {
     const username          = props.username
+    const haveRead          = props.haveRead
     const [isSelectedUser, setisSelectedUser] = useState(false)
     const [selectedClass, setselectedClass]   = useState(styles.userSelectionBox)
     const store         = useStore();
@@ -51,10 +52,9 @@ export default function Userbox(props) {
 
     return (
         <div className={selectedClass} onClick={()=>SelectUser(username)}>
-            <FaUserCircle className={styles.userAvatar} />
+            <FaUserCircle className={styles.userAvatar}></FaUserCircle>
             <span style={{marginLeft:'10px'}}>{username}</span>
-            <FaCircle className={styles.messengerRedDot} fontSize="12px"/>
-            <span style={{marginLeft:'10px',float:'right'}}>{username}</span>
+            {!haveRead ? <FaCircle className={styles.messengerRedDot} /> : ""}
         </div>
     )
 }

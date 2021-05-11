@@ -24,21 +24,7 @@ export default function MessagingScreen() {
         socket.on("SEEN_NOTIFY",({from, hasRead})=>{
             setSeenState(true)
         })
-        socket.on("INCOMING_MESSAGE", (data)=>{
-            if(data.sender === selectedUser) {
-                alert("sender: " + data.sender + "\n receviver :" + data.receiver + "\n seluser:"+selectedUser)
-                store.dispatch(PUSH_TO_SELECTED_CONVERSATION(data))
-                store.dispatch(SET_CONVERSATION_SEEN(selectedUser,true))
-                let from     = loggedUser
-                let target   = selectedUser
-                let haveRead = true
-                socket.emit("SET_READ", from, target, "def")
-                
-            } else {
-                store.dispatch()
-                //store.dispatch(SET_CONVERSATION_SEEN(from,FALSE)) 
-            }
-        })
+        
     }, [])
 
     useEffect(() => {

@@ -51,6 +51,14 @@ export function UPDATE_EXIST_CONVERSATION(_user,_read,_seen){
         dispatch({type:Actions.UPDATE_EXIST_CONVERSATION, payload: _payload})
     }
 }
+export function UPDATE_SELECTED_CONVERSATION(_read){
+    const _payload={
+        hasRead:_read,
+    }
+    return dispatch => {
+        dispatch({type:Actions.UPDATE_SELECTED_CONVERSATION, payload: _payload})
+    }
+}
 
 export function PUSH_TO_SELECTED_CONVERSATION(_messagePayload){
     return dispatch => {

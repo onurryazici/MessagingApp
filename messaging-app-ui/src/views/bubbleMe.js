@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../styles.module.css'
 import DateFormatter from 'date-and-time'
+import { FaCheck, FaCheckDouble } from 'react-icons/fa'
 
 export default function BubbleMe(props) {
     const seen     = props.seen
@@ -20,7 +21,7 @@ export default function BubbleMe(props) {
     return (
         <div className={styles.bubbleMe}>
             <div>{message}</div><br/>
-            <span className={styles.bubbleTimeMe}>{time}</span>
+            <span className={styles.bubbleTimeMe}>{seen ? <FaCheckDouble/> : <FaCheck/>}{time}</span>
         </div>
     )
 }

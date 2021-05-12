@@ -1,4 +1,5 @@
 import { Actions } from './actions';
+import { store } from './store';
 export function reducer (state,action){
     switch(action.type){
         case Actions.SET_LOGGED_USER:
@@ -50,7 +51,15 @@ export function reducer (state,action){
                 ...state,
                 conversationList:updatedConversationList
             }
-
+        case Actions.UPDATE_SELECTED_CONVERSATION:
+            const updatedSelectedConversation = [...state.selectedConversation]
+            updatedSelectedConversation.map((element) => {
+               element.hasRead = action.payload.hasRead
+            })
+            return {
+                ...state,
+                selectedConversation:updatedSelectedConversation
+            }
         case Actions.PUSH_TO_SELECTED_CONVERSATION: 
             const newConversation = [...state.selectedConversation]
             newConversation.push(action.payload)

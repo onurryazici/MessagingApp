@@ -3,7 +3,7 @@ import styles from '../styles.module.css'
 import classNames from 'classnames'
 import { FaCheckDouble, FaCircle, FaDotCircle, FaUserCircle} from 'react-icons/fa'
 import { useSelector, useStore } from 'react-redux'
-import { CLEAR_SELECTED_CONVERSATION, SET_SELECTED_CONVERSATION, SET_LOADING, SET_SELECTED_USER } from '../redux/functions'
+import { CLEAR_SELECTED_CONVERSATION, SET_SELECTED_CONVERSATION, SET_LOADING, SET_SELECTED_USER, UPDATE_EXIST_CONVERSATION } from '../redux/functions'
 import Axios from 'axios'
 import { propTypes } from 'react-bootstrap/esm/Image'
 import socket from '../socket'
@@ -33,10 +33,11 @@ export default function Userbox(props) {
                     console.log(response.data)
                     store.dispatch(SET_SELECTED_CONVERSATION(response.data.message))
                     store.dispatch(SET_LOADING(false))
-                    /*let from = loggedUser
+                    let from = loggedUser
                     let target = selectedUser
                     let haveRead = true
-                    socket.emit("SET_READ", from, target, haveRead)*/
+                    socket.emit("SET_READ", from, target, haveRead)
+                    //store.dispatch(UPDATE_EXIST_CONVERSATION(selectedUser,true,null))
                 }).catch(err=>{
                 alert("hata " + err)
                 })

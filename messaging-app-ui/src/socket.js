@@ -12,16 +12,18 @@ socket.onAny((event, ...args) => {
 });
 
 socket.on("INCOMING_MESSAGE", (data)=>{
-  const selectedUser = store.getState().selectedUser
+  const loggedUser       = store.getState().loggedUser
+  const selectedUser     = store.getState().selectedUser
   const conversationList = store.getState().conversationList
   if(data.sender === selectedUser) {
-      alert("sender: " + data.sender + "\n receviver :" + data.receiver + "\n seluser:"+selectedUser)
+      //alert("sender: " + data.sender + "\n receviver :" + data.receiver + "\n seluser:"+selectedUser)
       store.dispatch(PUSH_TO_SELECTED_CONVERSATION(data))
       store.dispatch(SET_CONVERSATION_SEEN(selectedUser,true))
       let from     = loggedUser
       let target   = selectedUser
       let haveRead = true
       socket.emit("SET_READ", from, target, haveRead)
+      store.dispatch(UPDATE_EXIST_CONVERSATION(target,true,true))
   } else {
       let isConversationExist = conversationList.some((element)=>element.user===data.sender)
       if (isConversationExist)

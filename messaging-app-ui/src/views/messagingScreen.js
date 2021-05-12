@@ -7,7 +7,7 @@ import BubbleMe         from './bubbleMe'
 import BubbleSender     from './bubbleSender'
 import styles           from '../styles.module.css'
 import classNames from 'classnames'
-import { PUSH_TO_SELECTED_CONVERSATION, SET_CONVERSATION_SEEN } from '../redux/functions'
+import { PUSH_TO_SELECTED_CONVERSATION, SET_CONVERSATION_SEEN, UPDATE_EXIST_CONVERSATION, UPDATE_SELECTED_CONVERSATION } from '../redux/functions'
 import socket from '../socket'
 
 export default function MessagingScreen() {
@@ -21,16 +21,19 @@ export default function MessagingScreen() {
     const selectedConversation   = useSelector((state)=>state.selectedConversation)
     
     useEffect(() => {
-        socket.on("SEEN_NOTIFY",({from, hasRead})=>{
-            setSeenState(true)
+        socket.on("SEEN_NOTIFY",({from, seen})=>{
+            ///// BURAYI GÜNCELLE
+            if(from === selectedUser)
+                store.dispatch(UPDATE_SELECTED_CONVERSATION(true,seen))
+            else
+                store.dispatch(UPDATE_EXIST_CONVERSATION(from,false,seen))
         })
         
     }, [])
 
     useEffect(() => {
-        console.log(selectedUser)
-        socket.emit("SET_READ", loggedUser, selectedUser, "abc")
-
+        socket.emit("SET_READ", loggedUser, selectedUser, true)
+        store.dispatch(UPDATE_EXIST_CONVERSATION(selectedUser,true,null))
     }, [selectedUser])
 
     useEffect(() => {
@@ -92,7 +95,7 @@ export default function MessagingScreen() {
                   : <React.Fragment>
                       {selectedConversation && selectedConversation.map((element)=>{
                             if(element.sender===loggedUser)
-                                return <BubbleMe message={element.message} datetime={element.datetime} seen={seenState}/>
+                                return <BubbleMe message={element.message} datetime={element.datetime} seen={element.hasRead}/>
                             else
                                 return <BubbleSender message={element.message} datetime={element.datetime}/>
                       })}

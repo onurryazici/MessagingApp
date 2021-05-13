@@ -1,5 +1,5 @@
 import { Actions } from './actions';
-import { store } from './store';
+
 export function reducer (state,action){
     switch(action.type){
         case Actions.SET_LOGGED_USER:

@@ -1,41 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { connect, useSelector, useStore }     from 'react-redux'
-import { AddToBubbleMe, MessengerSocket } from '../helper/global'
+import { PUSH_TO_SELECTED_CONVERSATION, UPDATE_EXIST_CONVERSATION, UPDATE_SELECTED_CONVERSATION } from '../redux/functions'
+import { useSelector, useStore }     from 'react-redux'
 import { Button, Form } from 'react-bootstrap'
 import { FaPaperPlane } from 'react-icons/fa'
 import BubbleMe         from './bubbleMe'
 import BubbleSender     from './bubbleSender'
 import styles           from '../styles.module.css'
 import classNames from 'classnames'
-import { PUSH_TO_SELECTED_CONVERSATION, SET_CONVERSATION_SEEN, UPDATE_EXIST_CONVERSATION, UPDATE_SELECTED_CONVERSATION } from '../redux/functions'
 import socket from '../socket'
 
 export default function MessagingScreen() {
     const [message, setMessage]  = useState("")
-    const [seenState, setSeenState] = useState(false)
+    const [typing, setTyping]    = useState(false)
     const store                  = useStore()
     const messagingStage         = useRef(null)
     const loggedUser             = useSelector((state)=>state.loggedUser)
     const selectedUser           = useSelector((state)=>state.selectedUser)
     const loading                = useSelector((state)=>state.loading)
     const selectedConversation   = useSelector((state)=>state.selectedConversation)
-    
+
     useEffect(() => {
         socket.on("SEEN_NOTIFY",({from, seen})=>{
-            ///// BURAYI GÜNCELLE
             if(from === selectedUser)
                 store.dispatch(UPDATE_SELECTED_CONVERSATION(true,seen))
             else
                 store.dispatch(UPDATE_EXIST_CONVERSATION(from,false,seen))
         })
         
-    }, [])
-
-    useEffect(() => {
-        socket.emit("SET_READ", loggedUser, selectedUser, true)
-        store.dispatch(UPDATE_EXIST_CONVERSATION(selectedUser,true,null))
-    }, [selectedUser])
-
+    }, [])    
     useEffect(() => {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight
     },[selectedConversation])
@@ -46,23 +38,25 @@ export default function MessagingScreen() {
 
     function onKeyUp(event) {
         setMessage(event.target.value)
-        const from   = loggedUser
-        const target = selectedUser
-        const typing = message.length > 0 ? true : false
-        socket.emit("SET_TYPING", from, target, typing)
-            
-    }
-    function onKeyPress(event){
-        if(event.which === 13 && !event.shiftKey){ // If pressed ENTER key
+
+        if(message.length > 0 && !typing){
+            setTyping(true)
+            const _from    = loggedUser
+            const _target  = selectedUser
+            const _typing = true
+            socket.emit("SET_TYPING", _from, _target, _typing)
+        }
+        else if((event.which === 13 && !event.shiftKey) || message.length === 0){ // If pressed ENTER key OR message was cleared
             event.preventDefault()
-            const from   = loggedUser
-            const target = selectedUser
-            const typing = false
-            socket.emit("SET_TYPING", from, target, typing)
+            const _from   = loggedUser
+            const _target = selectedUser
+            const _typing = false
+            socket.emit("SET_TYPING", _from, _target, _typing)
+            setTyping(false)
             SendMessage(event)
         }
+        
     }
-
     function SendMessage(event){
         event.preventDefault()
         const sender    = loggedUser
@@ -106,12 +100,11 @@ export default function MessagingScreen() {
                     className={styles.messageTypingArea} 
                     placeholder="Mesaj yazın..." 
                     onKeyUp={(event)=>onKeyUp(event)}
-                    onKeyPress={(event)=>onKeyPress(event)}
                     onChange={(event)=>setMessage(event.target.value)}
                     disabled={loading}
                     value={message}
                     />
-                <Button type="submit" variant="flat" className={styles.messageSendButton} disabled={loading}>
+                <Button type="submit" variant="flat" className={styles.messageSendButton} disabled={loading || message.length === 0}>
                     <FaPaperPlane color="white"/>
                 </Button>
             </Form>

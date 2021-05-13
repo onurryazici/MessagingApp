@@ -34,12 +34,11 @@ export default function Userbox(props) {
                     store.dispatch(SET_SELECTED_CONVERSATION(response.data.message))
                     store.dispatch(SET_LOADING(false))
                     let from = loggedUser
-                    let target = selectedUser
-                    let haveRead = true
-                    socket.emit("SET_READ", from, target, haveRead)
-                    //store.dispatch(UPDATE_EXIST_CONVERSATION(selectedUser,true,null))
+                    let target = _username
+                    socket.emit("SET_READ", from, target)
+                    store.dispatch(UPDATE_EXIST_CONVERSATION(target,true,null))
                 }).catch(err=>{
-                alert("hata " + err)
+                alert("Hata " + err)
                 })
             }
     }, [])

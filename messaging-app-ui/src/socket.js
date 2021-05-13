@@ -21,8 +21,7 @@ socket.on("INCOMING_MESSAGE", (data)=>{
       store.dispatch(SET_CONVERSATION_SEEN(selectedUser,true))
       let from     = loggedUser
       let target   = selectedUser
-      let haveRead = true
-      socket.emit("SET_READ", from, target, haveRead)
+      socket.emit("SET_READ", from, target)
       store.dispatch(UPDATE_EXIST_CONVERSATION(target,true,true))
   } else {
       let isConversationExist = conversationList.some((element)=>element.user===data.sender)

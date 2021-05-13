@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import styles from '../styles.module.css'
-import classNames from 'classnames'
 import { Accordion, Card, Dropdown } from 'react-bootstrap'
 import { FaCircle, FaEllipsisV, FaUserCircle } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
+import styles from '../styles.module.css'
 import socket from '../socket'
+
 export default function MessagingHeader() {
-    const selectedUser = useSelector(state => state.selectedUser)
+    const selectedUser            = useSelector(state => state.selectedUser)
     const [isTyping, setIsTyping] = useState(false)
+
     useEffect(() => {
         socket.on("TYPING_NOTIFY", ({from, typing})=>{
             if(from === selectedUser)
@@ -17,7 +18,9 @@ export default function MessagingHeader() {
     return (
         <Accordion as={Card.Header} className={styles.messagingHeader}>
             <FaUserCircle color="#0066cc" fontSize="28px"/>
-            <span className={styles.messageUsernameTitle}>{selectedUser}</span>
+            <span className={styles.messageUsernameTitle}>
+                {selectedUser}
+            </span>
             <FaCircle color="green" className={styles.userOnlineHeader}/>
             <span className={styles.messageUserStatu}>{
                 isTyping ? "Yazıyor..." : ""

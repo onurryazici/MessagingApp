@@ -11,7 +11,7 @@ export default function Content() {
     if(selectedUser === "") return (
         <div className={styles.messagingScreen}>
             <div className={styles.messengerLogo}>
-                <FaFacebookMessenger style={{color: '#1e538c',width: '100px',height: '100px'}}/>
+                <FaFacebookMessenger style={{color: '#1e538c',width: '100px',height: '100px'}}/>  
             </div>
         </div>
     )

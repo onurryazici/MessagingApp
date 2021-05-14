@@ -22,9 +22,7 @@ export default function MessagingScreen() {
     useEffect(() => {
         socket.on("SEEN_NOTIFY",({from, seen})=>{
             if(from === selectedUser)
-                store.dispatch(UPDATE_SELECTED_CONVERSATION(true,seen))
-            else
-                store.dispatch(UPDATE_EXIST_CONVERSATION(from,false,seen))
+                store.dispatch(UPDATE_SELECTED_CONVERSATION(true))
         })
         
     }, [])    
@@ -61,7 +59,6 @@ export default function MessagingScreen() {
         event.preventDefault()
         const sender    = loggedUser
         const receiver  = selectedUser
-        const message   = event.target.value
         const date      = new Date().getTime()
         if(message !== ""){
             const payload = {
@@ -104,7 +101,8 @@ export default function MessagingScreen() {
                     disabled={loading}
                     value={message}
                     />
-                <Button type="submit" variant="flat" className={styles.messageSendButton} disabled={loading || message.length === 0}>
+                <Button type="submit" variant="flat" className={styles.messageSendButton} 
+                disabled={loading || message.length === 0 || message.trim(' ').length === 0}>
                     <FaPaperPlane color="white"/>
                 </Button>
             </Form>

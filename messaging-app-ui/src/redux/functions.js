@@ -31,21 +31,20 @@ export function SET_SELECTED_CONVERSATION(_conversationArray){
         dispatch({type:Actions.SET_SELECTED_CONVERSATION, payload: _conversationArray})
     }
 }
-export function ADD_NEW_CONVERSATION(_user,_read,_seen){
+
+export function ADD_NEW_CONVERSATION(_user,_read){
     const _payload={
         user:_user,
         read:_read,
-        seen:_seen
     }
     return dispatch => {
         dispatch({type:Actions.ADD_NEW_CONVERSATION, payload: _payload})
     }
 }
-export function UPDATE_EXIST_CONVERSATION(_user,_read,_seen){
+export function UPDATE_EXIST_CONVERSATION(_user,_read){
     const _payload={
         user:_user,
         read:_read,
-        seen:_seen
     }
     return dispatch => {
         dispatch({type:Actions.UPDATE_EXIST_CONVERSATION, payload: _payload})
@@ -53,10 +52,18 @@ export function UPDATE_EXIST_CONVERSATION(_user,_read,_seen){
 }
 export function UPDATE_SELECTED_CONVERSATION(_read){
     const _payload={
-        hasRead:_read,
+        read:_read,
     }
     return dispatch => {
         dispatch({type:Actions.UPDATE_SELECTED_CONVERSATION, payload: _payload})
+    }
+}
+export function DELETE_SELECTED_CONVERSATION(_username){
+    return dispatch => {
+        const payload = {
+            username:_username
+        }
+        dispatch({type:Actions.DELETE_SELECTED_CONVERSATION, payload: payload})
     }
 }
 
@@ -65,10 +72,10 @@ export function PUSH_TO_SELECTED_CONVERSATION(_messagePayload){
         dispatch({type:Actions.PUSH_TO_SELECTED_CONVERSATION, payload: _messagePayload})
     }
 }
-export function SET_CONVERSATION_SEEN(_whichUser, _isRead){
+export function SET_CONVERSATION_READ(_whichUser, _isRead){
     const _payload ={
         user:_whichUser,
-        hasRead : _isRead
+        read : _isRead
     }
     return dispatch => {
         dispatch({type:Actions.SET_CONVERSATION_READ, payload: _payload})

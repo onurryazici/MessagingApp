@@ -22,7 +22,7 @@ export default function BubbleMe(props) {
         <div className={styles.bubbleMe}>
             <div>{message}</div><br/>
             <span className={styles.bubbleTimeMe}>{time}
-                {seen 
+                {seen === "true" || seen===true
                 ? <FaCheckDouble style={{marginLeft:'5px', color:'#3f7fb3'}} /> 
                 : <FaCheck style={{marginLeft:'5px', color:'#444444'}}/>}
             </span>

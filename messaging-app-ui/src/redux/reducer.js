@@ -33,18 +33,17 @@ export function reducer (state,action){
                 selectedConversation:action.payload
             }
         case Actions.ADD_NEW_CONVERSATION:
-            const newConversationList = [...state.conversationList]
-            newConversationList.unshift(action.payload)
+            const newConversationList3 = [...state.conversationList]
+            newConversationList3.unshift(action.payload)
             return {
                 ...state,
-                conversationList:newConversationList
+                conversationList:newConversationList3
             }
         case Actions.UPDATE_EXIST_CONVERSATION:
             const updatedConversationList = [...state.conversationList]
             updatedConversationList.map((element)=>{
                 if(element.user===action.payload.user){
                     element.read = action.payload.read
-                    element.seen = action.payload.seen
                 }
             })
             return {
@@ -54,11 +53,18 @@ export function reducer (state,action){
         case Actions.UPDATE_SELECTED_CONVERSATION:
             const updatedSelectedConversation = [...state.selectedConversation]
             updatedSelectedConversation.map((element) => {
-               element.hasRead = action.payload.hasRead
+               element.hasRead = action.payload.read
             })
             return {
                 ...state,
                 selectedConversation:updatedSelectedConversation
+            }
+        case Actions.DELETE_SELECTED_CONVERSATION:
+            return {
+                ...state,
+                selectedUser:"",
+                conversationList:state.conversationList.filter((element) => element.user!==action.payload.username),
+                selectedConversation:[]
             }
         case Actions.PUSH_TO_SELECTED_CONVERSATION: 
             const newConversation = [...state.selectedConversation]
@@ -71,8 +77,8 @@ export function reducer (state,action){
         case Actions.SET_CONVERSATION_READ:
             const newConversationList2 = [...state.conversationList]
             const targetUser = action.payload.user
-            const hasRead    = action.payload.hasRead
-            newConversationList2.filter((element)=>element.user===targetUser ? element.hasRead = hasRead : element)
+            const read       = action.payload.read
+            newConversationList2.filter((element)=>element.user===targetUser ? element.read = read : element)
             return {
                 ...state,
                 conversationList: newConversationList2

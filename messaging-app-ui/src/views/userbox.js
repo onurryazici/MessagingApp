@@ -1,17 +1,19 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import styles from '../styles.module.css'
-import classNames from 'classnames'
-import { FaCheckDouble, FaCircle, FaDotCircle, FaUserCircle} from 'react-icons/fa'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { FaCircle, FaUserCircle} from 'react-icons/fa'
 import { useSelector, useStore } from 'react-redux'
 import { CLEAR_SELECTED_CONVERSATION, SET_SELECTED_CONVERSATION, SET_LOADING, SET_SELECTED_USER, UPDATE_EXIST_CONVERSATION } from '../redux/functions'
-import Axios from 'axios'
 import { propTypes } from 'react-bootstrap/esm/Image'
+import styles from '../styles.module.css'
+import classNames from 'classnames'
+import Axios from 'axios'
 import socket from '../socket'
+
 export default function Userbox(props) {
     const username          = props.username
     const haveRead          = props.haveRead
     const [isSelectedUser, setisSelectedUser] = useState(false)
     const [selectedClass, setselectedClass]   = useState(styles.userSelectionBox)
+    const userBoxRef    = useRef(null)
     const store         = useStore();
     const loggedUser    = useSelector(state => state.loggedUser)
     const selectedUser  = useSelector(state => state.selectedUser)
@@ -21,37 +23,39 @@ export default function Userbox(props) {
     const SelectUser = useCallback((_username) => {
         if(!isSelectedUser){
             setisSelectedUser(true)
-            setselectedClass(classNames(styles.userSelectionBox,styles.userBoxSelected))
-            store.dispatch(SET_SELECTED_USER(username))
+            userBoxRef.current.className = classNames(styles.userSelectionBox,styles.userBoxSelected)
+            //setselectedClass(classNames(styles.userSelectionBox,styles.userBoxSelected))
             store.dispatch(SET_LOADING(true))
+            store.dispatch(SET_SELECTED_USER(_username))
             store.dispatch(CLEAR_SELECTED_CONVERSATION())
 
             Axios.post(API_URL + API_URL_GetMessage, {
-                sender:loggedUser, 
-                receiver:_username
-                }).then((response)=>{
-                    console.log(response.data)
-                    store.dispatch(SET_SELECTED_CONVERSATION(response.data.message))
-                    store.dispatch(SET_LOADING(false))
-                    let from = loggedUser
-                    let target = _username
-                    socket.emit("SET_READ", from, target)
-                    store.dispatch(UPDATE_EXIST_CONVERSATION(target,true,null))
-                }).catch(err=>{
+                loggedUser : loggedUser, 
+                targetUser : _username
+            }).then((response)=>{
+                console.log(response.data)
+                store.dispatch(SET_SELECTED_CONVERSATION(response.data.message))
+                store.dispatch(SET_LOADING(false))
+                let from = loggedUser
+                let target = _username
+                socket.emit("SET_READ", from, target)
+                store.dispatch(UPDATE_EXIST_CONVERSATION(target,true)) // gerekli değil gibi
+            }).catch(err=>{
                 alert("Hata " + err)
-                })
-            }
+            })
+        }
     }, [])
 
     useEffect(() => {
         if(username!==selectedUser) {
+            userBoxRef.current.className = styles.userSelectionBox
             setisSelectedUser(false)
-            setselectedClass(styles.userSelectionBox)
+            console.log("username " + username + "; selecteduser "  +selectedUser)
         }
     }, [selectedUser])
 
     return (
-        <div className={selectedClass} onClick={()=>SelectUser(username)}>
+        <div className={selectedClass} onClick={()=>SelectUser(username)} ref={userBoxRef}>
             <FaUserCircle className={styles.userAvatar}></FaUserCircle>
             <span style={{marginLeft:'10px'}}>{username}</span>
             {!haveRead ? <FaCircle className={styles.messengerRedDot} /> : ""}

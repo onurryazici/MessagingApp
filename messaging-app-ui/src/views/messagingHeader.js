@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Accordion, Card, Dropdown } from 'react-bootstrap'
 import { FaCircle, FaEllipsisV, FaUserCircle } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
+import DeleteConversationModal from '../modals/deleteConversationModal'
 import styles from '../styles.module.css'
 import socket from '../socket'
 
@@ -30,7 +31,7 @@ export default function MessagingHeader() {
                     <FaEllipsisV fontSize="25px" color="#3f7fb3"/>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Konuşmayı Sil</Dropdown.Item>
+                    <DeleteConversationModal/>
                 </Dropdown.Menu>
             </Dropdown>
         </Accordion>

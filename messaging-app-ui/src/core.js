@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useStore } from 'react-redux';
 import Content from './components/content'
 import Sidebar from './components/sidebar'
-import { MessengerSocket } from './helper/global';
-import { PUSH_TO_SELECTED_CONVERSATION } from './redux/functions';
 import socket from './socket';
 import styles from './styles.module.css'
 

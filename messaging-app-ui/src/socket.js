@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import  io  from "socket.io-client";
-import { ADD_NEW_CONVERSATION, PUSH_TO_SELECTED_CONVERSATION, SET_CONVERSATION_SEEN, UPDATE_EXIST_CONVERSATION} from "./redux/functions";
+import { ADD_NEW_CONVERSATION, PUSH_TO_SELECTED_CONVERSATION, SET_CONVERSATION_READ, UPDATE_EXIST_CONVERSATION} from "./redux/functions";
 import { store } from "./redux/store";
 
 const URL    = "http://192.168.91.128:4001";
@@ -18,17 +18,17 @@ socket.on("INCOMING_MESSAGE", (data)=>{
   if(data.sender === selectedUser) {
       //alert("sender: " + data.sender + "\n receviver :" + data.receiver + "\n seluser:"+selectedUser)
       store.dispatch(PUSH_TO_SELECTED_CONVERSATION(data))
-      store.dispatch(SET_CONVERSATION_SEEN(selectedUser,true))
+      store.dispatch(SET_CONVERSATION_READ(selectedUser,true))
       let from     = loggedUser
       let target   = selectedUser
       socket.emit("SET_READ", from, target)
-      store.dispatch(UPDATE_EXIST_CONVERSATION(target,true,true))
+      store.dispatch(UPDATE_EXIST_CONVERSATION(target,true))
   } else {
       let isConversationExist = conversationList.some((element)=>element.user===data.sender)
       if (isConversationExist)
-        store.dispatch(UPDATE_EXIST_CONVERSATION(data.sender,false,null))
+        store.dispatch(UPDATE_EXIST_CONVERSATION(data.sender,false))
       else
-        store.dispatch(ADD_NEW_CONVERSATION(data.sender,false,null))
+        store.dispatch(ADD_NEW_CONVERSATION(data.sender,false))
       
   }
 })

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { PUSH_TO_SELECTED_CONVERSATION, UPDATE_EXIST_CONVERSATION, UPDATE_SELECTED_CONVERSATION } from '../redux/functions'
+import { MOVE_CONVERSATION_TO_TOP, PUSH_TO_SELECTED_CONVERSATION, UPDATE_EXIST_CONVERSATION, UPDATE_SELECTED_CONVERSATION } from '../redux/functions'
 import { useSelector, useStore }     from 'react-redux'
 import { Button, Form } from 'react-bootstrap'
 import { FaPaperPlane } from 'react-icons/fa'
@@ -69,6 +69,7 @@ export default function MessagingScreen() {
             }
             socket.emit("SEND_MESSAGE", sender,receiver,message,date)
             store.dispatch(PUSH_TO_SELECTED_CONVERSATION(payload))
+            store.dispatch(MOVE_CONVERSATION_TO_TOP(receiver))
             setMessage("")
         }
     }

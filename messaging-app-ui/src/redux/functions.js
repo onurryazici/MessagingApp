@@ -41,6 +41,16 @@ export function ADD_NEW_CONVERSATION(_user,_read){
         dispatch({type:Actions.ADD_NEW_CONVERSATION, payload: _payload})
     }
 }
+
+export function MOVE_CONVERSATION_TO_TOP(_user){
+    const _payload={
+        user:_user,
+    }
+    return dispatch => {
+        dispatch({type:Actions.MOVE_CONVERSATION_TO_TOP, payload: _payload})
+    }
+}
+
 export function UPDATE_EXIST_CONVERSATION(_user,_read){
     const _payload={
         user:_user,

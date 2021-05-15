@@ -8,6 +8,7 @@ import styles from '../styles.module.css'
 import Userbox from '../views/userbox'
 export default function Sidebar() {
     const loggedUser       = useSelector(state => state.loggedUser)
+    const selectedUser     = useSelector(state => state.selectedUser)
     const conversationList = useSelector(state => state.conversationList)
     const API_URL     = store.getState().config.API_URL
     const API_URL_GetConversationList = store.getState().config.API_URL_GetConversationList
@@ -26,8 +27,8 @@ export default function Sidebar() {
         <div className={styles.sidebar}>
             <NewConversation />
             {
-                conversationList.map((element)=>{
-                    return <Userbox username={element.user} haveRead={element.read}/>
+                conversationList.map((element,key)=>{
+                    return <Userbox username={element.user} haveRead={element.read} key={key} isSelected={selectedUser===element.user}/>
                 })
             }
             

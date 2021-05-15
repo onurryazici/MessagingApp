@@ -39,6 +39,16 @@ export function reducer (state,action){
                 ...state,
                 conversationList:newConversationList3
             }
+        case Actions.MOVE_CONVERSATION_TO_TOP:
+            const newConversationList = [...state.conversationList]
+            
+            const firstIndex = action.payload.user
+            newConversationList.sort((x,y)=> {return x.user == firstIndex ? -1 : y.user==firstIndex ? 1 : 0})
+
+            return {
+                ...state,
+                conversationList:newConversationList,
+            }
         case Actions.UPDATE_EXIST_CONVERSATION:
             const updatedConversationList = [...state.conversationList]
             updatedConversationList.map((element)=>{
@@ -68,10 +78,15 @@ export function reducer (state,action){
             }
         case Actions.PUSH_TO_SELECTED_CONVERSATION: 
             const newConversation = [...state.selectedConversation]
+           /* const newConversationList = [...state.conversationList]
+            
+            const firstIndex = action.payload.receiver
+            newConversationList.sort((x,y)=> {return x.user == firstIndex ? -1 : y.user==firstIndex ? 1 : 0})*/
+
             newConversation.push(action.payload)
             return {
                 ...state,
-                selectedConversation:newConversation
+                selectedConversation:newConversation,
             }
 
         case Actions.SET_CONVERSATION_READ:

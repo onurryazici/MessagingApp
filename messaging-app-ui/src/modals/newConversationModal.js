@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap';
 import { FaPlusCircle } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { ADD_NEW_CONVERSATION, PUSH_TO_SELECTED_CONVERSATION } from '../redux/functions';
+import { ADD_NEW_CONVERSATION } from '../redux/functions';
 import { store } from '../redux/store';
 import socket from '../socket';
 import styles from '../styles.module.css'

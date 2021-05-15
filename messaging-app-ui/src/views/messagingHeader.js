@@ -12,29 +12,28 @@ function MessagingHeader(props) {
     const conversationList        = props.conversationList
     const selectedUser            = props.selectedUser
     const [isTyping, setIsTyping] = useState(false)
-
+    const isOnline      = conversationList.some((element)=>element.user===selectedUser && element.online)
     useEffect(() => {
         const isItTyping = conversationList.some((element)=>element.user===selectedUser && element.typing)
         if(isItTyping)
             setIsTyping(true)
         else
             setIsTyping(false)
-        /*socket.on("TYPING_NOTIFY", ({from, typing})=>{
-            store.dispatch(SET_CONVERSATION_IS_TYPING(from,typing))
-        })*/
     }, [conversationList])
 
-    /*socket.on("TYPING_NOTIFY", ({from, typing})=>{
-        if(from === selectedUser) 
-            setIsTyping(typing)
-    })*/
+    
     return (
         <Accordion as={Card.Header} className={styles.messagingHeader}>
             <FaUserCircle color="#0066cc" fontSize="28px"/>
             <span className={styles.messageUsernameTitle}>
                 {selectedUser}
             </span>
-            <FaCircle color="green" className={styles.userOnlineHeader}/>
+            {
+                isOnline
+                ? [<span className={styles.userStatuText}>Çevrimiçi</span>, <FaCircle color="green" className={styles.userStatuHeader}/>]
+                : [<span className={styles.userStatuText}>Çevrimdışı</span>, <FaCircle color="gray" className={styles.userStatuHeader}/>]
+            }
+            
             <span className={styles.messageUserStatu}>{
                 isTyping ? "Yazıyor..." : ""
             }</span>

@@ -10,8 +10,9 @@ import classNames from 'classnames'
 import socket from '../socket'
 
 export default function MessagingScreen() {
-    const [message, setMessage]  = useState("")
+    const [message, setMessage]  = useState(null)
     const [typing, setTyping]    = useState(false)
+    const [isAcceptable, setisAcceptable] = useState(false)
     const store                  = useStore()
     const messagingStage         = useRef(null)
     const loggedUser             = useSelector((state)=>state.loggedUser)
@@ -29,8 +30,19 @@ export default function MessagingScreen() {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight
     },[selectedConversation])
     useEffect(() => {
-        setMessage("")
+        setMessage()
     }, [selectedUser])
+
+    useEffect(() => {
+        if(loading || (message===undefined || message ===null || message.length === 0 || message.trim(' ').length === 0)){
+            setisAcceptable(false)
+        }
+        else {
+            setisAcceptable(true)
+        }
+    }, [message,loading])
+
+    // kalkmalı
     useEffect(() => {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight // BU BLOK KALDIRILACAK
     },)
@@ -104,7 +116,7 @@ export default function MessagingScreen() {
                     value={message}
                     />
                 <Button type="submit" variant="flat" className={styles.messageSendButton} 
-                disabled={loading || message.length === 0 || message.trim(' ').length === 0}>
+                disabled={!isAcceptable}>
                     <FaPaperPlane color="white"/>
                 </Button>
             </Form>

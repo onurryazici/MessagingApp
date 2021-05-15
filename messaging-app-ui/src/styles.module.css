@@ -28,11 +28,18 @@
   cursor: pointer;
 }
 
-.userAvatar{
+.userOfflineAvatar{
   font-size: 50px;
   color: #0066cc;
+  border: solid 5px #dedede;
+  border-radius: 25px;
 }
-
+.userOnlineAvatar{
+  font-size: 50px;
+  color: #0066cc;
+  border: solid 5px #00c400;
+  border-radius: 25px;
+}
 .sidebar{
   width:350px;
   height:100%;
@@ -90,12 +97,19 @@
   margin-right: 10px;
   color: #9e9e9e;
 }
-.userOnlineHeader{
+.userStatuHeader{
   margin-left:10px;
   margin-right: 10px;
   margin-top:8px;
 
   font-size: 12px;
+}
+.userStatuText{
+  margin-left:15px;
+  margin-right: 5px;
+  margin-top:8px;
+  line-height: 13px;
+  font-size: 14px;
 }
 .messageUsernameTitle{
   font-weight: bolder;

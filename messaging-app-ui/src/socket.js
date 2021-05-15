@@ -27,7 +27,7 @@ socket.on("INCOMING_MESSAGE", (data)=>{
         store.dispatch(MOVE_CONVERSATION_TO_TOP(data.sender))
       }
       else
-        store.dispatch(ADD_NEW_CONVERSATION(data.sender,false))
+        store.dispatch(ADD_NEW_CONVERSATION(data.sender,false,true))
   }
 })
 

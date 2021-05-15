@@ -41,10 +41,11 @@ export function SET_SELECTED_CONVERSATION(_conversationArray){
     }
 }
 
-export function ADD_NEW_CONVERSATION(_user,_read){
+export function ADD_NEW_CONVERSATION(_user,_read,_online){
     const _payload={
         user:_user,
         read:_read,
+        online:_online
     }
     return dispatch => {
         dispatch({type:Actions.ADD_NEW_CONVERSATION, payload: _payload})

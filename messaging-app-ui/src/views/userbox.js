@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FaCircle, FaUserCircle} from 'react-icons/fa'
 import { useSelector, useStore } from 'react-redux'
 import { CLEAR_SELECTED_CONVERSATION, SET_SELECTED_CONVERSATION, SET_LOADING, SET_SELECTED_USER, UPDATE_EXIST_CONVERSATION } from '../redux/functions'
@@ -10,6 +10,7 @@ import socket from '../socket'
 import { toast } from 'material-react-toastify'
 
 export default function Userbox(props) {
+    const isOnlineProps      = props.isOnline
     const isTyping           = props.isTyping
     const isSelected         = props.isSelected
     const username           = props.username
@@ -17,11 +18,19 @@ export default function Userbox(props) {
     const store              = useStore()
     const loggedUser         = useSelector(state => state.loggedUser)
     const [isOnline, setIsOnline] = useState(false)
-    //const API_URL            = store.getState().config.API_URL
-    //const API_URL_GetMessage = store.getState().config.API_URL_GetMessage
-    socket.on(`${username}_ONLINE_NOTIFY`,()=>{
-        setIsOnline(true)
-    })
+    
+    useEffect(() => {
+        socket.on(`${username}_ONLINE_NOTIFY`,()=>{
+            setIsOnline(true)
+        })
+        socket.on(`${username}_OFFLINE_NOTIFY`,()=>{
+            setIsOnline(false)
+        })
+        if(isOnlineProps)
+            setIsOnline(true)
+        else
+            setIsOnline(false)
+    }, [])
     const SelectUser = useCallback((_username) => {
         if(!isSelected){
             store.dispatch(SET_LOADING(true))
@@ -45,11 +54,13 @@ export default function Userbox(props) {
 
     return (
         <div className={isSelected ? classNames(styles.userSelectionBox,styles.userBoxSelected) :styles.userSelectionBox} onClick={()=>SelectUser(username)} >
-            <FaUserCircle className={styles.userAvatar}></FaUserCircle>
+            {isOnlineProps || isOnline
+                ? <FaUserCircle className={styles.userOnlineAvatar}></FaUserCircle>
+                : <FaUserCircle className={styles.userOfflineAvatar}></FaUserCircle>
+            }
             <span style={{marginLeft:'10px'}}>{username}</span>
             {!haveRead ? <FaCircle className={styles.messengerRedDot} /> : ""}
             {isTyping  ? <span className={styles.typingBox}>Yazıyor...</span> : ""}
-            
         </div>
     )
 }

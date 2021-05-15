@@ -18,9 +18,25 @@ export function reducer (state,action){
                 loading:action.payload
             }
         case Actions.SET_CONVERSATION_LIST:
+            const conversationList4 = action.payload
+            conversationList4.forEach((element)=>{
+                element.typing=null
+            })
             return {
                 ...state,
-                conversationList: action.payload
+                conversationList: conversationList4
+            }
+        case Actions.SET_CONVERSATION_IS_TYPING:
+            const conversationList5 = [...state.conversationList]
+
+            const existIndex = conversationList5.findIndex((element)=>element.user===action.payload.user)
+            if(existIndex !== -1) {
+                conversationList5[existIndex].typing=action.payload.typing
+            }
+
+            return {
+                ...state,
+                conversationList: conversationList5
             }
         case Actions.CLEAR_SELECTED_CONVERSATION:
             return {

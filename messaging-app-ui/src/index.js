@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import MessengerCore from './core';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import { SET_CONFIG, SET_LOGGED_USER } from './redux/functions';
+import { ToastContainer } from 'material-react-toastify'
 export function ReactMessenger (props){
   const configPayload={
     API_URL: props.API_URL,
@@ -13,10 +14,21 @@ export function ReactMessenger (props){
   }
   
   store.dispatch(SET_LOGGED_USER(prompt("kullanıcı adı gir","main")))
-  store.dispatch(SET_CONFIG(configPayload))
+  store.dispatch(SET_CONFIG(configPayload))  
   return (
     <Provider store={store}>
       <MessengerCore/>
+      <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          />
     </Provider>
   )
 }

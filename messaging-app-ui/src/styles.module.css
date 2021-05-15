@@ -76,6 +76,14 @@
   float: right;
   font-size: 12px;
 }
+.typingBox{
+  color: #06608a;
+  float: right;
+  margin-right: 10px;
+  line-height: 45px;
+  font-size: 14px;
+}
+
 .messageInfo{
   float: right;
   margin-top: 15px;

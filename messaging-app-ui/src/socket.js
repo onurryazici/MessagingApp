@@ -1,5 +1,5 @@
 import  io  from "socket.io-client";
-import { ADD_NEW_CONVERSATION, MOVE_CONVERSATION_TO_TOP, PUSH_TO_SELECTED_CONVERSATION, SET_CONVERSATION_READ, UPDATE_EXIST_CONVERSATION} from "./redux/functions";
+import { ADD_NEW_CONVERSATION, MOVE_CONVERSATION_TO_TOP, PUSH_TO_SELECTED_CONVERSATION, SET_CONVERSATION_IS_TYPING, SET_CONVERSATION_READ, UPDATE_EXIST_CONVERSATION} from "./redux/functions";
 import { store } from "./redux/store";
 
 const URL    = "http://192.168.91.128:4001";
@@ -29,6 +29,10 @@ socket.on("INCOMING_MESSAGE", (data)=>{
       else
         store.dispatch(ADD_NEW_CONVERSATION(data.sender,false))
   }
+})
+
+socket.on("TYPING_NOTIFY", ({from, typing})=>{
+  store.dispatch(SET_CONVERSATION_IS_TYPING(from,typing))
 })
 
 export default socket;

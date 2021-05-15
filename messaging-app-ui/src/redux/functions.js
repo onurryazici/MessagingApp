@@ -21,6 +21,15 @@ export function SET_CONVERSATION_LIST(_list){
         dispatch({type:Actions.SET_CONVERSATION_LIST, payload: _list})
     }
 }
+export function SET_CONVERSATION_IS_TYPING(_user,_typing){
+    const payload={
+        user   : _user,
+        typing : _typing
+    }
+    return dispatch => {
+        dispatch({type:Actions.SET_CONVERSATION_IS_TYPING, payload: payload})
+    }
+}
 export function CLEAR_SELECTED_CONVERSATION(){
     return dispatch => {
         dispatch({type:Actions.CLEAR_SELECTED_CONVERSATION, payload: null})

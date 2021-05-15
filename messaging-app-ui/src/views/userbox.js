@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { FaCircle, FaUserCircle} from 'react-icons/fa'
 import { useSelector, useStore } from 'react-redux'
 import { CLEAR_SELECTED_CONVERSATION, SET_SELECTED_CONVERSATION, SET_LOADING, SET_SELECTED_USER, UPDATE_EXIST_CONVERSATION } from '../redux/functions'
@@ -7,23 +7,27 @@ import styles from '../styles.module.css'
 import classNames from 'classnames'
 import Axios from 'axios'
 import socket from '../socket'
+import { toast } from 'material-react-toastify'
 
 export default function Userbox(props) {
+    const isTyping           = props.isTyping
     const isSelected         = props.isSelected
     const username           = props.username
     const haveRead           = props.haveRead
     const store              = useStore()
     const loggedUser         = useSelector(state => state.loggedUser)
-    const API_URL            = store.getState().config.API_URL
-    const API_URL_GetMessage = store.getState().config.API_URL_GetMessage
-
+    const [isOnline, setIsOnline] = useState(false)
+    //const API_URL            = store.getState().config.API_URL
+    //const API_URL_GetMessage = store.getState().config.API_URL_GetMessage
+    socket.on(`${username}_ONLINE_NOTIFY`,()=>{
+        setIsOnline(true)
+    })
     const SelectUser = useCallback((_username) => {
         if(!isSelected){
             store.dispatch(SET_LOADING(true))
             store.dispatch(SET_SELECTED_USER(_username))
             store.dispatch(CLEAR_SELECTED_CONVERSATION())
-
-            Axios.post(API_URL + API_URL_GetMessage, {
+            Axios.post("http://192.168.91.128:4001/api/protected/getMessage", {
                 loggedUser : loggedUser, 
                 targetUser : _username
             }).then((response)=>{
@@ -33,8 +37,8 @@ export default function Userbox(props) {
                 let target = _username
                 socket.emit("SET_READ", from, target)
                 store.dispatch(UPDATE_EXIST_CONVERSATION(target,true)) // gerekli değil gibi
-            }).catch(err=>{
-                alert("Hata " + err)
+            }).catch((error)=>{
+                toast.error('Hata :' + error)
             })
         }
     }, [])
@@ -44,6 +48,8 @@ export default function Userbox(props) {
             <FaUserCircle className={styles.userAvatar}></FaUserCircle>
             <span style={{marginLeft:'10px'}}>{username}</span>
             {!haveRead ? <FaCircle className={styles.messengerRedDot} /> : ""}
+            {isTyping  ? <span className={styles.typingBox}>Yazıyor...</span> : ""}
+            
         </div>
     )
 }

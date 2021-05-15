@@ -9,10 +9,10 @@ export default function DeleteConversationModal() {
     const [show, setModalShow] = useState(false);
     const selectedUser = useSelector(state => state.selectedUser)
     const loggedUser   = useSelector(state => state.loggedUser)
-    const API_URL = store.getState().config.API_URL
-    const API_URL_DeleteConversation = store.getState().config.API_URL_DeleteConversation
+    //const API_URL = store.getState().config.API_URL
+    //const API_URL_DeleteConversation = store.getState().config.API_URL_DeleteConversation
     function DeleteConversation() {
-        axios.post(API_URL+API_URL_DeleteConversation,{
+        axios.post("http://192.168.91.128:4001/api/protected/deleteConversation",{
             loggedUser   : loggedUser,
             selectedUser : selectedUser
         }).then((response)=>{

@@ -22,14 +22,15 @@ export default function MessagingScreen() {
     useEffect(() => {
         socket.on("SEEN_NOTIFY",({from, seen})=>{
             if(from === selectedUser)
-                store.dispatch(UPDATE_SELECTED_CONVERSATION(true))
+                store.dispatch(UPDATE_SELECTED_CONVERSATION(seen))
         })
-        
     }, [])    
     useEffect(() => {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight
     },[selectedConversation])
-    
+    useEffect(() => {
+        setMessage("")
+    }, [selectedUser])
     useEffect(() => {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight // BU BLOK KALDIRILACAK
     },)

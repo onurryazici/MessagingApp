@@ -17,20 +17,21 @@ export default function Userbox(props) {
     const haveRead           = props.haveRead
     const store              = useStore()
     const loggedUser         = useSelector(state => state.loggedUser)
+    const conversationList   = useSelector(state => state.conversationList)
     const [isOnline, setIsOnline] = useState(false)
     
     useEffect(() => {
         socket.on(`${username}_ONLINE_NOTIFY`,()=>{
-            setIsOnline(true)
+            //const exist = conversationList.some((element)=>element.user===username && element.online)
+            //if(exist)
+            store.dispatch(UPDATE_EXIST_CONVERSATION(username,null,true))
         })
         socket.on(`${username}_OFFLINE_NOTIFY`,()=>{
-            setIsOnline(false)
+            store.dispatch(UPDATE_EXIST_CONVERSATION(username,null,false))
         })
-        if(isOnlineProps)
-            setIsOnline(true)
-        else
-            setIsOnline(false)
     }, [])
+
+    
     const SelectUser = useCallback((_username) => {
         if(!isSelected){
             store.dispatch(SET_LOADING(true))
@@ -45,7 +46,7 @@ export default function Userbox(props) {
                 let from = loggedUser
                 let target = _username
                 socket.emit("SET_READ", from, target)
-                store.dispatch(UPDATE_EXIST_CONVERSATION(target,true)) // gerekli değil gibi
+                store.dispatch(UPDATE_EXIST_CONVERSATION(target,true,null))
             }).catch((error)=>{
                 toast.error('Hata :' + error)
             })

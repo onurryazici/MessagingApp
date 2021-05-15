@@ -61,10 +61,11 @@ export function MOVE_CONVERSATION_TO_TOP(_user){
     }
 }
 
-export function UPDATE_EXIST_CONVERSATION(_user,_read){
+export function UPDATE_EXIST_CONVERSATION(_user,_read,_online){
     const _payload={
         user:_user,
         read:_read,
+        online:_online
     }
     return dispatch => {
         dispatch({type:Actions.UPDATE_EXIST_CONVERSATION, payload: _payload})

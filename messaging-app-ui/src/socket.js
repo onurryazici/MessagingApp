@@ -19,11 +19,11 @@ socket.on("INCOMING_MESSAGE", (data)=>{
       let from     = loggedUser
       let target   = selectedUser
       socket.emit("SET_READ", from, target)
-      store.dispatch(UPDATE_EXIST_CONVERSATION(target,true))
+      store.dispatch(UPDATE_EXIST_CONVERSATION(target,true,true))
   } else {
       let isConversationExist = conversationList.some((element)=>element.user===data.sender)
       if (isConversationExist) {
-        store.dispatch(UPDATE_EXIST_CONVERSATION(data.sender,false))
+        store.dispatch(UPDATE_EXIST_CONVERSATION(data.sender,false,null))
         store.dispatch(MOVE_CONVERSATION_TO_TOP(data.sender))
       }
       else

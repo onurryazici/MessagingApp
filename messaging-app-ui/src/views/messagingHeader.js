@@ -12,13 +12,17 @@ function MessagingHeader(props) {
     const conversationList        = props.conversationList
     const selectedUser            = props.selectedUser
     const [isTyping, setIsTyping] = useState(false)
-    const isOnline      = conversationList.some((element)=>element.user===selectedUser && element.online)
+    const [isOnline, setIsOnline] = useState(false)
     useEffect(() => {
         const isItTyping = conversationList.some((element)=>element.user===selectedUser && element.typing)
         if(isItTyping)
             setIsTyping(true)
         else
             setIsTyping(false)
+
+        const onlineStatu = conversationList.some((element)=>element.user===selectedUser && element.online)
+        setIsOnline(onlineStatu)
+        
     }, [conversationList])
 
     

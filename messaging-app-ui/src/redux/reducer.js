@@ -69,7 +69,8 @@ export function reducer (state,action){
             const updatedConversationList = [...state.conversationList]
             updatedConversationList.map((element)=>{
                 if(element.user===action.payload.user){
-                    element.read = action.payload.read
+                    action.payload.read !== null ? element.read = action.payload.read : null;
+                    action.payload.online !==null ? element.online = action.payload.online : null;
                 }
             })
             return {

@@ -1,10 +1,11 @@
-import axios from 'axios';
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import { DELETE_SELECTED_CONVERSATION } from '../redux/functions';
 import { store } from '../redux/store';
 import styles from '../styles.module.css'
+import axios from 'axios';
+
 export default function DeleteConversationModal() {
     const [show, setModalShow] = useState(false);
     const selectedUser = useSelector(state => state.selectedUser)

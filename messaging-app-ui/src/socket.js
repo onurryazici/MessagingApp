@@ -35,4 +35,11 @@ socket.on("TYPING_NOTIFY", ({from, typing})=>{
   store.dispatch(SET_CONVERSATION_IS_TYPING(from,typing))
 })
 
+socket.on("ONLINE_NOTIFY", ({target,online})=>{
+  const conversationList = store.getState().conversationList
+  let isConversationExist = conversationList.some((element)=>element.user===target)
+  if(isConversationExist)
+    store.dispatch(UPDATE_EXIST_CONVERSATION(target,null,online))
+})
+
 export default socket;

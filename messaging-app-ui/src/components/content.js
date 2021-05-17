@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux'
 
 export default function Content() {
     const selectedUser = useSelector(state => state.selectedUser)
-
     if(selectedUser === "") return (
         <div className={styles.messagingScreen}>
             <div className={styles.messengerLogo}>

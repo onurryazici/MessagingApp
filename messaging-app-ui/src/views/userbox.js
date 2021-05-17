@@ -17,18 +17,16 @@ export default function Userbox(props) {
     const haveRead           = props.haveRead
     const store              = useStore()
     const loggedUser         = useSelector(state => state.loggedUser)
-    const conversationList   = useSelector(state => state.conversationList)
-    const [isOnline, setIsOnline] = useState(false)
     
     useEffect(() => {
         socket.on(`${username}_ONLINE_NOTIFY`,()=>{
-            //const exist = conversationList.some((element)=>element.user===username && element.online)
-            //if(exist)
             store.dispatch(UPDATE_EXIST_CONVERSATION(username,null,true))
         })
         socket.on(`${username}_OFFLINE_NOTIFY`,()=>{
             store.dispatch(UPDATE_EXIST_CONVERSATION(username,null,false))
         })
+        let targetUser = username
+        socket.emit("IS_HE_ONLINE", targetUser )  
     }, [])
 
     
@@ -55,7 +53,7 @@ export default function Userbox(props) {
 
     return (
         <div className={isSelected ? classNames(styles.userSelectionBox,styles.userBoxSelected) :styles.userSelectionBox} onClick={()=>SelectUser(username)} >
-            {isOnlineProps || isOnline
+            {isOnlineProps
                 ? <FaUserCircle className={styles.userOnlineAvatar}></FaUserCircle>
                 : <FaUserCircle className={styles.userOfflineAvatar}></FaUserCircle>
             }

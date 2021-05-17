@@ -12,8 +12,6 @@ export default function Sidebar() {
     const loggedUser       = useSelector(state => state.loggedUser)
     const selectedUser     = useSelector(state => state.selectedUser)
     const conversationList = useSelector(state => state.conversationList)
-    //const API_URL                     = store.getState().config.API_URL
-    //const API_URL_GetConversationList = store.getState().config.API_URL_GetConversationList
 
     useEffect(() => {
         axios.post("http://192.168.91.128:4001/api/protected/getConversationList", {

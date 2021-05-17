@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { MOVE_CONVERSATION_TO_TOP, PUSH_TO_SELECTED_CONVERSATION, UPDATE_EXIST_CONVERSATION, UPDATE_SELECTED_CONVERSATION } from '../redux/functions'
+import { MOVE_CONVERSATION_TO_TOP, PUSH_TO_SELECTED_CONVERSATION, UPDATE_SELECTED_CONVERSATION } from '../redux/functions'
 import { useSelector, useStore }     from 'react-redux'
 import { Button, Form } from 'react-bootstrap'
 import { FaPaperPlane } from 'react-icons/fa'
@@ -25,12 +25,18 @@ export default function MessagingScreen() {
             if(from === selectedUser)
                 store.dispatch(UPDATE_SELECTED_CONVERSATION(seen))
         })
+        if(messagingStage){
+            messagingStage.current.addEventListener('DOMNodeInserted', event => {
+                const { currentTarget:target } = event
+                target.scroll({top:target.scrollHeight, behavior:'smooth'})
+            })
+        }
     }, [])    
-    useEffect(() => {
+    /*useEffect(() => {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight
-    },[selectedConversation])
+    },[selectedConversation])*/
     useEffect(() => {
-        setMessage()
+        setMessage("")
     }, [selectedUser])
 
     useEffect(() => {
@@ -43,37 +49,36 @@ export default function MessagingScreen() {
     }, [message,loading])
 
     // kalkmalı
-    useEffect(() => {
+    /*useEffect(() => {
         messagingStage.current.scrollTop = messagingStage.current.scrollHeight // BU BLOK KALDIRILACAK
-    },)
-
+    },)*/
+    function onKeyDown(event) {
+        if (event.keyCode == 13 && !event.shiftKey)
+            event.preventDefault();
+    }
     function onKeyUp(event) {
         setMessage(event.target.value)
+        const _from    = loggedUser
+        const _target  = selectedUser
 
-        if(message.length > 0 && !typing){
+        if(message !== undefined && message.length > 0 && !typing){
             setTyping(true)
-            const _from    = loggedUser
-            const _target  = selectedUser
             const _typing = true
             socket.emit("SET_TYPING", _from, _target, _typing)
         }
-        else if((event.which === 13 && !event.shiftKey) || message.length === 0){ // If pressed ENTER key OR message was cleared
-            event.preventDefault()
-            const _from   = loggedUser
-            const _target = selectedUser
+        else if((event.which === 13 && !event.shiftKey && message !== undefined && message.trim(' ').length !==0)){ // If pressed ENTER key
+            setTyping(false)
             const _typing = false
             socket.emit("SET_TYPING", _from, _target, _typing)
-            setTyping(false)
             SendMessage(event)
         }
-        
     }
     function SendMessage(event){
         event.preventDefault()
         const sender    = loggedUser
         const receiver  = selectedUser
         const date      = new Date().getTime()
-        if(message !== ""){
+        if(message !== "") {
             const payload = {
                 sender:sender,
                 receiver:receiver,
@@ -111,6 +116,7 @@ export default function MessagingScreen() {
                     className={styles.messageTypingArea} 
                     placeholder="Mesaj yazın..." 
                     onKeyUp={(event)=>onKeyUp(event)}
+                    onKeyDown={(event)=>onKeyDown(event)}
                     onChange={(event)=>setMessage(event.target.value)}
                     disabled={loading}
                     value={message}

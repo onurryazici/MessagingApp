@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { MOVE_CONVERSATION_TO_TOP, PUSH_TO_SELECTED_CONVERSATION, UPDATE_SELECTED_CONVERSATION } from '../redux/functions'
-import { useSelector, useStore }     from 'react-redux'
+import { useSelector }  from 'react-redux'
 import { Button, Form } from 'react-bootstrap'
 import { FaPaperPlane } from 'react-icons/fa'
+import { MessengerStore } from '../redux/messengerStore'
 import BubbleMe         from './bubbleMe'
 import BubbleSender     from './bubbleSender'
 import styles           from '../styles.module.css'
 import classNames from 'classnames'
-import socket from '../socket'
+import MessengerSocket from '../messengerSocket'
 
 export default function MessagingScreen() {
     const [message, setMessage]  = useState(null)
     const [typing, setTyping]    = useState(false)
     const [isAcceptable, setisAcceptable] = useState(false)
-    const store                  = useStore()
     const messagingStage         = useRef(null)
     const loggedUser             = useSelector((state)=>state.loggedUser)
     const selectedUser           = useSelector((state)=>state.selectedUser)
@@ -21,9 +21,9 @@ export default function MessagingScreen() {
     const selectedConversation   = useSelector((state)=>state.selectedConversation)
 
     useEffect(() => {
-        socket.on("SEEN_NOTIFY",({from, seen})=>{
+        MessengerSocket.on("SEEN_NOTIFY",({from, seen})=>{
             if(from === selectedUser)
-                store.dispatch(UPDATE_SELECTED_CONVERSATION(seen))
+                MessengerStore.dispatch(UPDATE_SELECTED_CONVERSATION(seen))
         })
         if(messagingStage){
             messagingStage.current.addEventListener('DOMNodeInserted', event => {
@@ -64,12 +64,12 @@ export default function MessagingScreen() {
         if(message !== undefined && message.length > 0 && !typing){
             setTyping(true)
             const _typing = true
-            socket.emit("SET_TYPING", _from, _target, _typing)
+            MessengerSocket.emit("SET_TYPING", _from, _target, _typing)
         }
         else if((event.which === 13 && !event.shiftKey && message !== undefined && message.trim(' ').length !==0)){ // If pressed ENTER key
             setTyping(false)
             const _typing = false
-            socket.emit("SET_TYPING", _from, _target, _typing)
+            MessengerSocket.emit("SET_TYPING", _from, _target, _typing)
             SendMessage(event)
         }
     }
@@ -85,9 +85,9 @@ export default function MessagingScreen() {
                 message:message,
                 datetime:date
             }
-            socket.emit("SEND_MESSAGE", sender,receiver,message,date)
-            store.dispatch(PUSH_TO_SELECTED_CONVERSATION(payload))
-            store.dispatch(MOVE_CONVERSATION_TO_TOP(receiver))
+            MessengerSocket.emit("SEND_MESSAGE", sender,receiver,message,date)
+            MessengerStore.dispatch(PUSH_TO_SELECTED_CONVERSATION(payload))
+            MessengerStore.dispatch(MOVE_CONVERSATION_TO_TOP(receiver))
             setMessage("")
         }
     }

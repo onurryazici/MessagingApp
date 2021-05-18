@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FaCircle, FaUserCircle} from 'react-icons/fa'
-import { useSelector, useStore } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { CLEAR_SELECTED_CONVERSATION, SET_SELECTED_CONVERSATION, SET_LOADING, SET_SELECTED_USER, UPDATE_EXIST_CONVERSATION } from '../redux/functions'
 import { propTypes } from 'react-bootstrap/esm/Image'
+import { MessengerStore } from '../redux/messengerStore'
 import styles from '../styles.module.css'
 import classNames from 'classnames'
 import Axios from 'axios'
-import socket from '../socket'
+import MessengerSocket from '../messengerSocket'
 import { toast } from 'material-react-toastify'
 
 export default function Userbox(props) {
@@ -15,36 +16,35 @@ export default function Userbox(props) {
     const isSelected         = props.isSelected
     const username           = props.username
     const haveRead           = props.haveRead
-    const store              = useStore()
     const loggedUser         = useSelector(state => state.loggedUser)
     
     useEffect(() => {
-        socket.on(`${username}_ONLINE_NOTIFY`,()=>{
-            store.dispatch(UPDATE_EXIST_CONVERSATION(username,null,true))
+        MessengerSocket.on(`${username}_ONLINE_NOTIFY`,()=>{
+            MessengerStore.dispatch(UPDATE_EXIST_CONVERSATION(username,null,true))
         })
-        socket.on(`${username}_OFFLINE_NOTIFY`,()=>{
-            store.dispatch(UPDATE_EXIST_CONVERSATION(username,null,false))
+        MessengerSocket.on(`${username}_OFFLINE_NOTIFY`,()=>{
+            MessengerStore.dispatch(UPDATE_EXIST_CONVERSATION(username,null,false))
         })
         let targetUser = username
-        socket.emit("IS_HE_ONLINE", targetUser )  
+        MessengerSocket.emit("IS_HE_ONLINE", targetUser )  
     }, [])
 
     
     const SelectUser = useCallback((_username) => {
         if(!isSelected){
-            store.dispatch(SET_LOADING(true))
-            store.dispatch(SET_SELECTED_USER(_username))
-            store.dispatch(CLEAR_SELECTED_CONVERSATION())
+            MessengerStore.dispatch(SET_LOADING(true))
+            MessengerStore.dispatch(SET_SELECTED_USER(_username))
+            MessengerStore.dispatch(CLEAR_SELECTED_CONVERSATION())
             Axios.post("http://192.168.91.128:4001/api/protected/getMessage", {
                 loggedUser : loggedUser, 
                 targetUser : _username
             }).then((response)=>{
-                store.dispatch(SET_SELECTED_CONVERSATION(response.data.message))
-                store.dispatch(SET_LOADING(false))
+                MessengerStore.dispatch(SET_SELECTED_CONVERSATION(response.data.message))
+                MessengerStore.dispatch(SET_LOADING(false))
                 let from = loggedUser
                 let target = _username
-                socket.emit("SET_READ", from, target)
-                store.dispatch(UPDATE_EXIST_CONVERSATION(target,true,null))
+                MessengerSocket.emit("SET_READ", from, target)
+                MessengerStore.dispatch(UPDATE_EXIST_CONVERSATION(target,true,null))
             }).catch((error)=>{
                 toast.error('Hata :' + error)
             })

@@ -82,8 +82,9 @@
 .MmessengerRedDot{
   color:red;
   margin-top: 18px;
-  float: right;
   font-size: 12px;
+  right:11px;
+  position: absolute;
 }
 .MtypingBox{
   color: #06608a;
@@ -91,6 +92,8 @@
   margin-right: 10px;
   line-height: 45px;
   font-size: 14px;
+  position:absolute;
+  right:20px;
 }
 
 .MmessageInfo{

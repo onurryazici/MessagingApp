@@ -4,6 +4,7 @@ import MessengerCore from './core'
 import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import { SET_CONFIG, SET_LOGGED_USER } from './redux/functions'
+import socket from './socket'
 
 
 export default function ReactMessenger (props){
@@ -20,6 +21,9 @@ export default function ReactMessenger (props){
   )
 }
 
+export {
+  socket
+}
 ReactMessenger.PropTypes = {
   username : PropTypes.string,
   tokenName : PropTypes.string,

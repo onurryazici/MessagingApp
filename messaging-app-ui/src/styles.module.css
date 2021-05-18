@@ -1,13 +1,13 @@
 /* add css module styles here (optional) */
 
-.test {
+.Mtest {
   margin: 2em;
-  padding: 0.5em;
+  padding: 0.M5em;
   border: 2px solid #000;
   font-size: 2em;
   text-align: center;
 }
-.container {
+.Mcontainer {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -15,7 +15,7 @@
   overflow-y: hidden;
   display: flex;
 }
-.userSelectionBox{
+.MuserSelectionBox{
   width:100%;
   height:60px;
   background-color: #fff;
@@ -23,31 +23,31 @@
   padding: 5px 8px 5px 8px;
   border-bottom: solid thin #dedede;
 }
-.userSelectionBox:hover{
+.MuserSelectionBox:hover{
   background: #e9e9e9;
   cursor: pointer;
 }
 
-.userOfflineAvatar{
+.MuserOfflineAvatar{
   font-size: 50px;
   color: #0066cc;
   border: solid 5px #dedede;
   border-radius: 25px;
 }
-.userOnlineAvatar{
+.MuserOnlineAvatar{
   font-size: 50px;
   color: #0066cc;
   border: solid 5px #00c400;
   border-radius: 25px;
 }
-.sidebar{
+.Msidebar{
   width:350px;
   height:100%;
   position: fixed;
   border-right: solid thin #dedede;
 }
 
-.messagingScreen{
+.MmessagingScreen{
   height: 100%;
   width: calc(100% - 350px);
   left: 350px;
@@ -55,7 +55,7 @@
   background-color: aliceblue;
 }
 
-.newConversationButton {
+.MnewConversationButton {
   width: 100%;
   background-color:#3f7fb3;
   color: #fff;
@@ -64,26 +64,26 @@
   height: 53px;
   line-height:30px;
 }
-.newConversationButton:hover{
+.MnewConversationButton:hover{
   background-color:#70aee0;
   color: #fff;
 }
-.deleteConversationButton {
+.MdeleteConversationButton {
   width: 100%;
   background-color: #fff;
   border-radius: 0px;
 }
-.deleteConversationButton:hover{
+.MdeleteConversationButton:hover{
   background-color:#3f7fb3;
   color: #fff;
 }
-.messengerRedDot{
+.MmessengerRedDot{
   color:red;
   margin-top: 18px;
   float: right;
   font-size: 12px;
 }
-.typingBox{
+.MtypingBox{
   color: #06608a;
   float: right;
   margin-right: 10px;
@@ -91,39 +91,39 @@
   font-size: 14px;
 }
 
-.messageInfo{
+.MmessageInfo{
   float: right;
   margin-top: 15px;
   margin-right: 10px;
   color: #9e9e9e;
 }
-.userStatuHeader{
+.MuserStatuHeader{
   margin-left:10px;
   margin-right: 10px;
   margin-top:8px;
 
   font-size: 12px;
 }
-.userStatuText{
+.MuserStatuText{
   margin-left:15px;
   margin-right: 5px;
   margin-top:8px;
   line-height: 13px;
   font-size: 14px;
 }
-.messageUsernameTitle{
+.MmessageUsernameTitle{
   font-weight: bolder;
   margin-left: 10px;
   margin-top:2px;
 }
-.messageUserStatu{
+.MmessageUserStatu{
   font-weight: lighter;
   color: #444;
   margin-left: 5px;
   font-size: 14px;
   line-height: 30px;
 }
-.messageScrollerStage{
+.MmessageScrollerStage{
   position: absolute;
   width: 100%;
   top: 55px;
@@ -135,29 +135,29 @@
   margin-bottom: 10px;
   overflow-y: scroll;
 }
-.messageScrollerStage::-webkit-scrollbar-track
+.MmessageScrollerStage::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.M3);
 	background-color: #F5F5F5;
 }
 
-.messageScrollerStage::-webkit-scrollbar
+.MmessageScrollerStage::-webkit-scrollbar
 {
 	width: 8px;
 	background-color: #F5F5F5;
 }
 
-.messageScrollerStage::-webkit-scrollbar-thumb
+.MmessageScrollerStage::-webkit-scrollbar-thumb
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #234f74;
 }
-.messageScrollerStage::-webkit-scrollbar-thumb:hover
+.MmessageScrollerStage::-webkit-scrollbar-thumb:hover
 {
 	background-color: #558cb9;
 }
 
-.bubbleMe{
+.MbubbleMe{
   float: right;
   padding: 10px;
   color: #000;
@@ -171,7 +171,7 @@
   position: relative;
   word-break: break-all;
 }
-.bubbleSender{
+.MbubbleSender{
   float: right;
   padding: 10px;
   color: #fff;
@@ -185,7 +185,7 @@
   width: fit-content;
   word-break: break-all;
 }
-.bubbleTimeSender{
+.MbubbleTimeSender{
   position: absolute;
   right: 15px;
   bottom: 7px;
@@ -194,7 +194,7 @@
   line-height: 25px;
 }
 
-.bubbleTimeMe{
+.MbubbleTimeMe{
   position: absolute;
   right: 15px;
   bottom: 7px;
@@ -203,7 +203,7 @@
   line-height: 25px;
 }
 
-.messageTypingStage{
+.MmessageTypingStage{
   position: absolute;
   bottom: 0px;
   width: 100%;
@@ -211,17 +211,17 @@
   display: flex;
   padding: 15px;
 }
-.messageTypingArea{
+.MmessageTypingArea{
   resize: none;
   border-radius: 7px;
   margin-right: 15px;
   padding: 12px;
 }
-.messageSendButton{
+.MmessageSendButton{
   background-color:#3f7fb3;
 
 }
-.userBoxSelected{
+.MuserBoxSelected{
   background-color: rgb(230, 242, 252);
 }
 
@@ -245,7 +245,7 @@
   margin-top: 110px
 }
 
-.messengerLogo{
+.MmessengerLogo{
   margin: 0;
   position: absolute;
   top: 50%;
@@ -254,11 +254,11 @@
   transform: translateY(-50%);
 }
 
-.messagingHeader{
+.MmessagingHeader{
   background-color: #fff;
   display: flex;
 }
-.noselect {
+.Mnoselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -271,18 +271,18 @@
 
 /********************************/
 
-.loadingContainer {
+.MloadingContainer {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.loading__ {
+.Mloading__ {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-.loading__letter {
+.Mloading__letter {
   font-size: 88px;
   font-weight: normal;
   letter-spacing: 4px;
@@ -290,17 +290,17 @@
   font-family: "Audiowide";
   color: #3f7fb3;
   animation-name: bounce;
-  animation-duration: 0.6s;
+  animation-duration: 0.M6s;
   animation-iteration-count: infinite;
 }
 
-.loading__letter:nth-child(2) {
+.Mloading__letter:nth-child(2) {
   animation-delay: .1s;	
 }
-.loading__letter:nth-child(3) {
+.Mloading__letter:nth-child(3) {
   animation-delay: .2s;
 }
-.loading__letter:nth-child(4) {
+.Mloading__letter:nth-child(4) {
   animation-delay: .3s;	
 }
 
@@ -320,13 +320,13 @@
 
 
 @media (max-width: 700px) {
-  .loading__letter {
+  .Mloading__letter {
     font-size: 50px;
   }
 }
 
 @media (max-width: 340px) {
-  .loading__letter {
+  .Mloading__letter {
     font-size: 40px;
   }
 }

@@ -23,7 +23,7 @@ export default function Sidebar() {
         })
     }, [])
     return (
-        <div className={styles.sidebar}>
+        <div className={styles.Msidebar}>
             <NewConversation />
             {conversationList.map((element,key)=>{
                     return <Userbox 

@@ -15,7 +15,7 @@ export default function MessengerCore() {
     }, []);
 
     return (
-        <div className={styles.container}>
+        <div className={styles.Mcontainer}>
             <Sidebar />
             <Content />
             <ToastContainer

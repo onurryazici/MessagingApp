@@ -16,9 +16,9 @@ export default function BubbleSender(props) {
             date.getFullYear() === today.getFullYear();
     };
     return (
-        <div className={styles.bubbleSender}>
+        <div className={styles.MbubbleSender}>
             <div>{message}</div><br/>
-            <span className={styles.bubbleTimeSender}>{time}</span>
+            <span className={styles.MbubbleTimeSender}>{time}</span>
         </div>
     )
 }

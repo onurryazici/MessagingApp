@@ -93,13 +93,13 @@ export default function MessagingScreen() {
     }
     return (
         <React.Fragment>
-            <div className={styles.messageScrollerStage} ref={messagingStage}>
+            <div className={styles.MmessageScrollerStage} ref={messagingStage}>
                 { loading 
-                  ? <div className={styles.loadingContainer}>
+                  ? <div className={styles.MloadingContainer}>
                         <div className={classNames(styles.loading__,styles.noselect)}>
-                            <div className={styles.loading__letter}>.</div>
-                            <div className={styles.loading__letter}>.</div>
-                            <div className={styles.loading__letter}>.</div>
+                            <div className={styles.Mloading__letter}>.</div>
+                            <div className={styles.Mloading__letter}>.</div>
+                            <div className={styles.Mloading__letter}>.</div>
                         </div>
                     </div>
                   : <React.Fragment>
@@ -111,9 +111,9 @@ export default function MessagingScreen() {
                       })}
                     </React.Fragment> }
             </div>
-            <Form autoComplete="off" onSubmit={SendMessage} className={styles.messageTypingStage}>
+            <Form autoComplete="off" onSubmit={SendMessage} className={styles.MmessageTypingStage}>
                 <Form.Control as="textarea" rows={3} 
-                    className={styles.messageTypingArea} 
+                    className={styles.MmessageTypingArea} 
                     placeholder="Mesaj yazın..." 
                     onKeyUp={(event)=>onKeyUp(event)}
                     onKeyDown={(event)=>onKeyDown(event)}
@@ -121,7 +121,7 @@ export default function MessagingScreen() {
                     disabled={loading}
                     value={message}
                     />
-                <Button type="submit" variant="flat" className={styles.messageSendButton} 
+                <Button type="submit" variant="flat" className={styles.MmessageSendButton} 
                 disabled={!isAcceptable}>
                     <FaPaperPlane color="white"/>
                 </Button>

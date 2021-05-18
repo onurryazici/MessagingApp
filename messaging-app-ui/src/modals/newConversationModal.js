@@ -49,7 +49,7 @@ export default function NewConversationModal() {
     
     return (
         <React.Fragment>
-          <Button variant="flat" onClick={()=>setModalShow(true)} className={styles.newConversationButton}>
+          <Button variant="flat" onClick={()=>setModalShow(true)} className={styles.MnewConversationButton}>
             <FaPlusCircle fontSize="25px"/> Yeni mesaj
           </Button>
           <Modal show={show} onHide={()=>setModalShow(false)}>

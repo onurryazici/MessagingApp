@@ -25,7 +25,7 @@ export default function DeleteConversationModal() {
     }
     return (
         <React.Fragment>
-          <Button variant="flat" onClick={()=>setModalShow(true)} className={styles.deleteConversationButton}>
+          <Button variant="flat" onClick={()=>setModalShow(true)} className={styles.MdeleteConversationButton}>
             Konuşmayı Sil
           </Button>
           <Modal show={show} onHide={()=>setModalShow(false)}>

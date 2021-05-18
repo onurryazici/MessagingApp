@@ -54,12 +54,12 @@ export default function Userbox(props) {
     return (
         <div className={isSelected ? classNames(styles.userSelectionBox,styles.userBoxSelected) :styles.userSelectionBox} onClick={()=>SelectUser(username)} >
             {isOnlineProps
-                ? <FaUserCircle className={styles.userOnlineAvatar}></FaUserCircle>
-                : <FaUserCircle className={styles.userOfflineAvatar}></FaUserCircle>
+                ? <FaUserCircle className={styles.MuserOnlineAvatar}></FaUserCircle>
+                : <FaUserCircle className={styles.MuserOfflineAvatar}></FaUserCircle>
             }
             <span style={{marginLeft:'10px'}}>{username}</span>
-            {!haveRead ? <FaCircle className={styles.messengerRedDot} /> : ""}
-            {isTyping  ? <span className={styles.typingBox}>Yazıyor...</span> : ""}
+            {!haveRead ? <FaCircle className={styles.MmessengerRedDot} /> : ""}
+            {isTyping  ? <span className={styles.MtypingBox}>Yazıyor...</span> : ""}
         </div>
     )
 }

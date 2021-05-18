@@ -27,18 +27,18 @@ function MessagingHeader(props) {
 
     
     return (
-        <Accordion as={Card.Header} className={styles.messagingHeader}>
+        <Accordion as={Card.Header} className={styles.MmessagingHeader}>
             <FaUserCircle color="#0066cc" fontSize="28px"/>
-            <span className={styles.messageUsernameTitle}>
+            <span className={styles.MmessageUsernameTitle}>
                 {selectedUser}
             </span>
             {
                 isOnline
-                ? [<span className={styles.userStatuText}>Çevrimiçi</span>, <FaCircle color="green" className={styles.userStatuHeader}/>]
-                : [<span className={styles.userStatuText}>Çevrimdışı</span>, <FaCircle color="gray" className={styles.userStatuHeader}/>]
+                ? [<span className={styles.MuserStatuText}>Çevrimiçi</span>, <FaCircle color="green" className={styles.MuserStatuHeader}/>]
+                : [<span className={styles.MuserStatuText}>Çevrimdışı</span>, <FaCircle color="gray" className={styles.MuserStatuHeader}/>]
             }
             
-            <span className={styles.messageUserStatu}>{
+            <span className={styles.MmessageUserStatu}>{
                 isTyping ? "Yazıyor..." : ""
             }</span>
             <Dropdown style={{position:'absolute',right:'15px'}}>

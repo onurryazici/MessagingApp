@@ -6,7 +6,7 @@ import { propTypes } from 'react-bootstrap/esm/Image'
 import styles from '../styles.module.css'
 import classNames from 'classnames'
 import Axios from 'axios'
-import socket from '../socket'
+import MessengerSocket from '../messenger-socket'
 import { toast } from 'material-react-toastify'
 
 export default function Userbox(props) {
@@ -19,14 +19,14 @@ export default function Userbox(props) {
     const loggedUser         = useSelector(state => state.loggedUser)
     
     useEffect(() => {
-        socket.on(`${username}_ONLINE_NOTIFY`,()=>{
+        MessengerSocket.on(`${username}_ONLINE_NOTIFY`,()=>{
             store.dispatch(UPDATE_EXIST_CONVERSATION(username,null,true))
         })
-        socket.on(`${username}_OFFLINE_NOTIFY`,()=>{
+        MessengerSocket.on(`${username}_OFFLINE_NOTIFY`,()=>{
             store.dispatch(UPDATE_EXIST_CONVERSATION(username,null,false))
         })
         let targetUser = username
-        socket.emit("IS_HE_ONLINE", targetUser )  
+        MessengerSocket.emit("IS_HE_ONLINE", targetUser )  
     }, [])
 
     
@@ -43,7 +43,7 @@ export default function Userbox(props) {
                 store.dispatch(SET_LOADING(false))
                 let from = loggedUser
                 let target = _username
-                socket.emit("SET_READ", from, target)
+                MessengerSocket.emit("SET_READ", from, target)
                 store.dispatch(UPDATE_EXIST_CONVERSATION(target,true,null))
             }).catch((error)=>{
                 toast.error('Hata :' + error)

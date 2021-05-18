@@ -1,28 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import MessengerCore from './core'
-import { store } from './redux/store'
+import { MessengerStore } from './redux/messenger-store'
 import { Provider } from 'react-redux'
 import { SET_CONFIG, SET_LOGGED_USER } from './redux/functions'
-import socket from './socket'
-
+import MessengerSocket from './messenger-socket'
 
 export default function ReactMessenger (props){
   const configPayload={
     tokenName:props.tokenName
   }
   
-  store.dispatch(SET_LOGGED_USER(props.username))
-  store.dispatch(SET_CONFIG(configPayload))  
+  MessengerStore.dispatch(SET_LOGGED_USER(props.username))
+  MessengerStore.dispatch(SET_CONFIG(configPayload))  
   return (
-    <Provider store={store}>
+    <Provider store={MessengerStore}>
       <MessengerCore/>
     </Provider>
   )
 }
 
 export {
-  socket
+  MessengerSocket,
+  MessengerStore
 }
 ReactMessenger.PropTypes = {
   username : PropTypes.string,

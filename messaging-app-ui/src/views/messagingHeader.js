@@ -4,8 +4,8 @@ import { FaCircle, FaEllipsisV, FaUserCircle } from 'react-icons/fa'
 import { connect, useSelector } from 'react-redux'
 import DeleteConversationModal from '../modals/deleteConversationModal'
 import styles from '../styles.module.css'
-import socket from '../socket'
-import { store } from '../redux/store'
+import socket from '../messenger-socket'
+import { MessengerStore } from '../redux/messenger-store'
 import { SET_CONVERSATION_IS_TYPING } from '../redux/functions'
 
 function MessagingHeader(props) {

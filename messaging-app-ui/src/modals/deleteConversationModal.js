@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import { DELETE_SELECTED_CONVERSATION } from '../redux/functions';
-import { store } from '../redux/store';
+import { MessengerStore } from '../redux/messenger-store';
 import styles from '../styles.module.css'
 import axios from 'axios';
 
@@ -10,15 +10,15 @@ export default function DeleteConversationModal() {
     const [show, setModalShow] = useState(false);
     const selectedUser = useSelector(state => state.selectedUser)
     const loggedUser   = useSelector(state => state.loggedUser)
-    //const API_URL = store.getState().config.API_URL
-    //const API_URL_DeleteConversation = store.getState().config.API_URL_DeleteConversation
+    //const API_URL = MessengerStore.getState().config.API_URL
+    //const API_URL_DeleteConversation = MessengerStore.getState().config.API_URL_DeleteConversation
     function DeleteConversation() {
         axios.post("http://192.168.91.128:4001/api/protected/deleteConversation",{
             loggedUser   : loggedUser,
             selectedUser : selectedUser
         }).then((response)=>{
             if(response.data.statu){
-                store.dispatch(DELETE_SELECTED_CONVERSATION(selectedUser))
+                MessengerStore.dispatch(DELETE_SELECTED_CONVERSATION(selectedUser))
                 setModalShow(false)
             }
         })

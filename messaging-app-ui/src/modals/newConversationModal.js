@@ -5,8 +5,8 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { FaPlusCircle } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { ADD_NEW_CONVERSATION, MOVE_CONVERSATION_TO_TOP, SET_SELECTED_USER } from '../redux/functions';
-import { store } from '../redux/store';
-import socket from '../socket';
+import { MessengerStore } from '../redux/messenger-store';
+import MessengerSocket from '../messenger-socket';
 import styles from '../styles.module.css'
 export default function NewConversationModal() {
     const [message, setMessage]       = useState("")
@@ -28,15 +28,15 @@ export default function NewConversationModal() {
           const receiver  = targetUser
           const date      = new Date().getTime()
           if(message !== ""){
-              socket.emit("SEND_MESSAGE", sender,receiver,message,date)
+              MessengerSocket.emit("SEND_MESSAGE", sender,receiver,message,date)
               let onlineState = targetUser === loggedUser ? true : null
               let exist = conversationList.some((element)=> element.user === targetUser)
               if(exist){
-                store.dispatch(SET_SELECTED_USER(""))
-                store.dispatch(MOVE_CONVERSATION_TO_TOP(targetUser))                
+                MessengerStore.dispatch(SET_SELECTED_USER(""))
+                MessengerStore.dispatch(MOVE_CONVERSATION_TO_TOP(targetUser))                
               }
               else {
-                store.dispatch(ADD_NEW_CONVERSATION(targetUser,true,onlineState))
+                MessengerStore.dispatch(ADD_NEW_CONVERSATION(targetUser,true,onlineState))
               }
               setMessage("")
               setModalShow(false)

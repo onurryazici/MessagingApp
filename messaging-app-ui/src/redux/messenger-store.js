@@ -15,4 +15,4 @@ const allEnhancers = compose(
     applyMiddleware(thunk),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // FOR DISABLE MAKE COMMENT LINE
   )
-export const store = createStore(reducer, initialState, allEnhancers)
+export const MessengerStore = createStore(reducer, initialState, allEnhancers)

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { SET_CONVERSATION_LIST } from '../redux/functions'
-import { store } from '../redux/store'
+import { MessengerStore } from '../redux/messenger-store'
 import { toast } from 'material-react-toastify'
 import axios from 'axios'
 import styles from '../styles.module.css'
@@ -17,7 +17,7 @@ export default function Sidebar() {
         axios.post("http://192.168.91.128:4001/api/protected/getConversationList", {
             loggedUser:loggedUser
         }).then((response)=>{
-            store.dispatch(SET_CONVERSATION_LIST(response.data.conversations))
+            MessengerStore.dispatch(SET_CONVERSATION_LIST(response.data.conversations))
         }).catch((error)=>{
             toast.error('Hata :' + error)
         })

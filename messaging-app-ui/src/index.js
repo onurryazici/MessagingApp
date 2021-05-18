@@ -4,10 +4,9 @@ import MessengerCore from './core'
 import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import { SET_CONFIG, SET_LOGGED_USER } from './redux/functions'
-import { ToastContainer } from 'material-react-toastify'
-import 'material-react-toastify/dist/ReactToastify.css'
 
-export function ReactMessenger (props){
+
+export default function ReactMessenger (props){
   const configPayload={
     tokenName:props.tokenName
   }
@@ -17,17 +16,6 @@ export function ReactMessenger (props){
   return (
     <Provider store={store}>
       <MessengerCore/>
-      <ToastContainer
-          position="bottom-center"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          />
     </Provider>
   )
 }

@@ -4,7 +4,8 @@ import Content from './components/content'
 import Sidebar from './components/sidebar'
 import socket from './socket';
 import styles from './styles.module.css'
-
+import { ToastContainer } from 'material-react-toastify'
+import 'material-react-toastify/dist/ReactToastify.css'
 export default function MessengerCore() {
     const loggedUser   = useSelector(state => state.loggedUser)
     useEffect(() => {
@@ -17,6 +18,17 @@ export default function MessengerCore() {
         <div className={styles.container}>
             <Sidebar />
             <Content />
+            <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                />
         </div>
     )
 }

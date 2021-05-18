@@ -52,7 +52,7 @@ export default function Userbox(props) {
     }, [])
 
     return (
-        <div className={isSelected ? classNames(styles.userSelectionBox,styles.userBoxSelected) :styles.userSelectionBox} onClick={()=>SelectUser(username)} >
+        <div className={isSelected ? classNames(styles.MuserSelectionBox,styles.MuserBoxSelected) :styles.MuserSelectionBox} onClick={()=>SelectUser(username)} >
             {isOnlineProps
                 ? <FaUserCircle className={styles.MuserOnlineAvatar}></FaUserCircle>
                 : <FaUserCircle className={styles.MuserOfflineAvatar}></FaUserCircle>

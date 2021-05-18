@@ -96,7 +96,7 @@ export default function MessagingScreen() {
             <div className={styles.MmessageScrollerStage} ref={messagingStage}>
                 { loading 
                   ? <div className={styles.MloadingContainer}>
-                        <div className={classNames(styles.loading__,styles.noselect)}>
+                        <div className={classNames(styles.Mloading__,styles.Mnoselect)}>
                             <div className={styles.Mloading__letter}>.</div>
                             <div className={styles.Mloading__letter}>.</div>
                             <div className={styles.Mloading__letter}>.</div>

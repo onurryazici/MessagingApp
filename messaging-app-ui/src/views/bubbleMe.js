@@ -20,7 +20,7 @@ export default function BubbleMe(props) {
 
     return (
         <div className={styles.MbubbleMe}>
-            <div>{message}</div><br/>
+            <div style={{textAlign:'left'}}>{message}</div><br/>
             <span className={styles.MbubbleTimeMe}>{time}
                 {seen === "true" || seen===true
                 ? <FaCheckDouble style={{marginLeft:'5px', color:'#3f7fb3'}} /> 

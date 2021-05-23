@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Accordion, Card, Dropdown } from 'react-bootstrap'
 import { FaCircle, FaEllipsisV, FaUserCircle } from 'react-icons/fa'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import DeleteConversationModal from '../modals/deleteConversationModal'
 import styles from '../styles.module.css'
-import socket from '../socket'
-import { store } from '../redux/store'
-import { SET_CONVERSATION_IS_TYPING } from '../redux/functions'
 
 function MessagingHeader(props) {
     const conversationList        = props.conversationList

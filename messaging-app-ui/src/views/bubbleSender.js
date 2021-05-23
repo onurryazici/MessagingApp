@@ -17,7 +17,7 @@ export default function BubbleSender(props) {
     };
     return (
         <div className={styles.MbubbleSender}>
-            <div>{message}</div><br/>
+             <div style={{textAlign:'left'}}>{message}</div><br/>
             <span className={styles.MbubbleTimeSender}>{time}</span>
         </div>
     )

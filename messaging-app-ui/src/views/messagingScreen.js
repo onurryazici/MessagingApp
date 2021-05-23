@@ -61,20 +61,26 @@ export default function MessagingScreen() {
         const _from    = loggedUser
         const _target  = selectedUser
 
-        if(message !== undefined && message.length > 0 && !typing){
-            setTyping(true)
-            const _typing = true
-            MessengerSocket.emit("SET_TYPING", _from, _target, _typing)
-        }
-        else if((event.which === 13 && !event.shiftKey && message !== undefined && message.trim(' ').length !==0)){ // If pressed ENTER key
-            setTyping(false)
-            const _typing = false
-            MessengerSocket.emit("SET_TYPING", _from, _target, _typing)
-            SendMessage(event)
+        if(message!== undefined ){
+            if(message.length > 0 && message.trim(' ').length > 0 && !typing){
+                setTyping(true)
+                const _typing = true
+                MessengerSocket.emit("SET_TYPING", _from, _target, _typing)
+            }
+            else if((event.which === 13 && !event.shiftKey && message.trim(' ').length > 0)){ // If pressed ENTER key
+                SendMessage(event)
+            } else if (message.trim(' ').length === 0 && typing){
+                setTyping(false)
+                const _typing = false
+                MessengerSocket.emit("SET_TYPING", _from, _target, _typing)
+            }
         }
     }
     function SendMessage(event){
         event.preventDefault()
+        const _from    = loggedUser
+        const _target  = selectedUser
+        
         const sender    = loggedUser
         const receiver  = selectedUser
         const date      = new Date().getTime()
@@ -85,6 +91,9 @@ export default function MessagingScreen() {
                 message:message,
                 datetime:date
             }
+            setTyping(false)
+            const _typing = false
+            MessengerSocket.emit("SET_TYPING", _from, _target, _typing)
             MessengerSocket.emit("SEND_MESSAGE", sender,receiver,message,date)
             MessengerStore.dispatch(PUSH_TO_SELECTED_CONVERSATION(payload))
             MessengerStore.dispatch(MOVE_CONVERSATION_TO_TOP(receiver))
@@ -121,8 +130,7 @@ export default function MessagingScreen() {
                     disabled={loading}
                     value={message}
                     />
-                <Button type="submit" variant="flat" className={styles.MmessageSendButton} 
-                disabled={!isAcceptable}>
+                <Button type="submit" variant="flat" className={styles.MmessageSendButton} disabled={!isAcceptable}>
                     <FaPaperPlane color="white"/>
                 </Button>
             </Form>

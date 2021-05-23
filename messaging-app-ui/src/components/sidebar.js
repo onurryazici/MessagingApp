@@ -30,7 +30,7 @@ export default function Sidebar() {
                                 username={element.user} 
                                 haveRead={element.read} 
                                 key={key} 
-                                isTyping={element.typing}
+                                isTyping={element.typing && element.online}
                                 isOnline={element.online}
                                 isSelected={selectedUser===element.user}/>
                 })}

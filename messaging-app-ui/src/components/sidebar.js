@@ -14,7 +14,7 @@ export default function Sidebar() {
     const conversationList = useSelector(state => state.conversationList)
 
     useEffect(() => {
-        axios.post("http://192.168.91.128:4001/api/protected/getConversationList", {
+        axios.post("http://192.168.91.130:4001/api/protected/getConversationList", {
             loggedUser:loggedUser
         }).then((response)=>{
             MessengerStore.dispatch(SET_CONVERSATION_LIST(response.data.conversations))

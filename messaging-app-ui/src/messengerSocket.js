@@ -2,8 +2,8 @@ import  io  from "socket.io-client";
 import { ADD_NEW_CONVERSATION, MOVE_CONVERSATION_TO_TOP, PUSH_TO_SELECTED_CONVERSATION, SET_CONVERSATION_IS_TYPING, SET_CONVERSATION_READ, UPDATE_EXIST_CONVERSATION} from "./redux/functions";
 import { MessengerStore } from "./redux/messengerStore";
 
-const URL    = "http://192.168.91.128:4001";
-const MessengerSocket = io(URL, { autoConnect:false, query:{token:"token gelecek buraya"} });
+const URL    = "http://192.168.91.130:4001";
+const MessengerSocket = io(URL, { autoConnect:false, query:{token:localStorage.getItem("user-token")} });
 
 MessengerSocket.onAny((event, ...args) => {
   console.log(event, args);

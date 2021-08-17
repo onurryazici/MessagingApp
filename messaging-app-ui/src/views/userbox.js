@@ -35,7 +35,7 @@ export default function Userbox(props) {
             MessengerStore.dispatch(SET_LOADING(true))
             MessengerStore.dispatch(SET_SELECTED_USER(_username))
             MessengerStore.dispatch(CLEAR_SELECTED_CONVERSATION())
-            Axios.post("http://192.168.91.130:4001/api/protected/getMessage", {
+            Axios.post("http://localhost:4001/api/protected/getMessage", {
                 loggedUser : loggedUser, 
                 targetUser : _username
             }).then((response)=>{

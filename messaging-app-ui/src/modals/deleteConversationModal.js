@@ -13,7 +13,7 @@ export default function DeleteConversationModal() {
     //const API_URL = MessengerStore.getState().config.API_URL
     //const API_URL_DeleteConversation = MessengerStore.getState().config.API_URL_DeleteConversation
     function DeleteConversation() {
-        axios.post("http://192.168.91.130:4001/api/protected/deleteConversation",{
+        axios.post("http://localhost:4001/api/protected/deleteConversation",{
             loggedUser   : loggedUser,
             selectedUser : selectedUser
         }).then((response)=>{

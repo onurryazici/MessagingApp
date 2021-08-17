@@ -18,7 +18,7 @@ export default function NewConversationModal() {
 
     function NewConversation(event) {
       event.preventDefault()
-      axios.post("http://192.168.91.130:3030/api/secured/isUserExist",{
+      axios.post("http://localhost:3030/api/secured/isUserExist",{
         user:targetUser,
         token:localStorage.getItem(tokenName)
       }).then((response)=>{

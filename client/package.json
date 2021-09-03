@@ -1,7 +1,7 @@
 {
-  "name": "messaging-app-ui",
+  "name": "messaging-app-client",
   "version": "1.0.0",
-  "description": "Made with create-react-library",
+  "description": "Front-end side of messaging app",
   "author": "onurryazici",
   "license": "MIT",
   "repository": "onurryazici/messaging-app-ui",

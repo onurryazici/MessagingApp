@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
+import { ToastContainer } from 'material-react-toastify'
 import Content from './components/content'
 import Sidebar from './components/sidebar'
-import MessengerSocket from './messengerSocket';
+import MessengerSocket from './messengerSocket'
 import styles from './styles.module.css'
-import { ToastContainer } from 'material-react-toastify'
 import 'material-react-toastify/dist/ReactToastify.css'
+
 export default function MessengerCore() {
     const loggedUser   = useSelector(state => state.loggedUser)
     useEffect(() => {
-        
         MessengerSocket.auth = { loggedUser }
         MessengerSocket.connect()
         MessengerSocket.emit("USER_CONNECTED", loggedUser)

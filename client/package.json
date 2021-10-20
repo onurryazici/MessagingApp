@@ -1,5 +1,5 @@
 {
-  "name": "messaging-app-client",
+  "name": "client",
   "version": "1.0.0",
   "description": "Front-end side of messaging app",
   "author": "onurryazici",
@@ -59,7 +59,6 @@
     "date-and-time": "^1.0.0",
     "eslint-config-rallycoding": "^3.2.0",
     "material-react-toastify": "^1.0.1",
-    "messaging-app-ui": "file:messaging-app-ui-1.0.0.tgz",
     "prop-types": "^15.7.2",
     "react-bootstrap": "^1.5.2",
     "react-icons": "^4.2.0",

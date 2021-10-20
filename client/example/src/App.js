@@ -1,7 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
-import ReactMessenger from 'messaging-app-ui'
-import 'messaging-app-ui/dist/index.css'
+import ReactMessenger from 'client'
+import 'client/dist/index.css'
 
 const App = () => {
   return (

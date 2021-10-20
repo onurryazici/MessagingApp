@@ -1,6 +1,6 @@
 {
-  "short_name": "messaging-app-ui",
-  "name": "messaging-app-ui",
+  "short_name": "client",
+  "name": "client",
   "icons": [
     {
       "src": "favicon.ico",
